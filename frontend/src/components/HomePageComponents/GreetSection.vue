@@ -5,7 +5,10 @@
     </div>
 </template>
 
+
+
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 @keyframes slideInFromLeft {
     from {
         opacity: 0;
@@ -26,6 +29,7 @@
         
     } 
 }
+
     
     div {
         display: flex;
@@ -33,14 +37,16 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-color: black;
         color: white;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        text-shadow: 2px 2px 4px lime;
+        font-family: 'Share Tech Mono', monospace;
+       
     }
 
     h1 {
         font-size: 3rem;
         animation: 1s ease-out 0s 1 slideInFromLeft;
+        animation-fill-mode: forwards;
     }
     p {
         opacity: 0;
