@@ -48,6 +48,7 @@ onMounted(()=>{ //lifecycle of vue
             particle.draw(ctx);
         });
         drawLineToCursor();
+        drawLeftBorderLine();
 
         requestAnimationFrame(animate); // recursive function doesnt cause stack overflow
         
@@ -69,8 +70,29 @@ onMounted(()=>{ //lifecycle of vue
                 ctx.lineTo(mouse.x, mouse.y);
                 ctx.strokeStyle = 'lime';
                 ctx.stroke();
+                ctx.shadowBlur = 0;
             }
         });
+    }
+
+    function drawLeftBorderLine(){
+        if (mouse.x < 100) {
+        ctx.save(); 
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0); 
+        ctx.lineTo(0, canvas.height);
+
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = 'lime';        
+        ctx.shadowColor = 'lime';        
+        ctx.shadowBlur = 30;                
+        ctx.globalAlpha = 1000;              
+
+        ctx.stroke();
+
+        ctx.restore(); 
+    }
     }
 
     initParticles();
