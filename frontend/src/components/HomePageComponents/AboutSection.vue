@@ -1,14 +1,22 @@
 <script setup lang="ts">
 
-import en from "./../../lang/eng";
-import de from "./../../lang/deu";
-import be from "./../../lang/bel";
+  import en from "./../../lang/eng";
+  import de from "./../../lang/deu";
+  import be from "./../../lang/bel";
+  import {lang} from "../../modules/langStore"
 
-const lang = 'en';
 
-const translations = {en, be, de}
+  import { ref, computed } from 'vue';
 
-const t = translations[lang];
+
+  const translations = { en, be, de };
+  const t = computed(() => translations[lang.value]);
+
+
+  function changeLang(langCode: 'en' | 'de' | 'be') {
+    lang.value = langCode;
+  }
+
 
 </script>
 
