@@ -8,7 +8,7 @@
 
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
 @keyframes slideInFromLeft {
     from {
         opacity: 0;

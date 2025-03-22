@@ -1,7 +1,9 @@
 <script setup>
 import GreetSection from './HomePageComponents/GreetSection.vue';
+import AboutSection from './HomePageComponents/AboutSection.vue';
 import { onMounted } from 'vue';
 import Particle from '../utils/Particle.ts';
+
 
 onMounted(()=>{ //lifecycle of vue
     const canvas = document.getElementById('canvas');
@@ -81,16 +83,32 @@ onMounted(()=>{ //lifecycle of vue
 
 
 <style lang="css" scoped>
-canvas {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: black;}
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    *{
+        font-family: 'Share Tech Mono', monospace;
+    }
+
+    canvas {
+        position: fixed;
+        width: 100vw;
+        min-height: 100vh;
+        background-color: black;
+        z-index: 0
+    }
+    
 </style>
 
 <template>
-    <canvas id="canvas"></canvas>
-  <div>
-    <GreetSection />
-  </div>
+
+    <canvas id="canvas">
+    </canvas>
+
+    <div>
+        <GreetSection/>
+        <AboutSection />
+    </div>
+    
+  
+
 </template>
