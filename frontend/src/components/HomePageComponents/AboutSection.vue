@@ -5,7 +5,7 @@
 <template>
     <div class="about-wrapper">
       <div class="info">
-        <h2>{{ t.about.title }}</h2>
+        <h1>{{ t.about.title }}</h1>
         <p>{{ t.about.text }}</p>
       </div>
       <img src="./../../assets/FkXe0iXk.jpeg" height="200" class="profile-photo" />

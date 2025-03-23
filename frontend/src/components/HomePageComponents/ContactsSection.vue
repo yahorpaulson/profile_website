@@ -1,5 +1,9 @@
 <script setup lang="ts">
-  import {t} from './../../modules/langStore'
+    import {t} from './../../modules/langStore'
+
+    function openGithub(){
+        window.open(t.value.contacts.github);
+    }
 </script>
 
 <template>
@@ -8,16 +12,62 @@
         
 
         <button class="email">
-            <span class="icon"></span>
+            <span class="icon email-icon"></span>
             {{ t.contacts.email }}
         </button>
 
-        <button class="github">{{ t.contacts.github }}</button>
-        <button class="tel">{{ t.contacts.phone }}</button>
+        <button class="github" @click="openGithub">
+            <span class="icon github-icon">/</span>
+            {{ t.contacts.github }}
+        </button>
+
+        <button class="tel">
+            <span class="icon phone-icon"></span>
+            {{ t.contacts.phone }}
+        </button>
     </div>
 </template>
 
 <style lang="css" scoped>
+
+
+    /**______________MAIN STYLES _____________ */
+
+
+    @keyframes spinLeftY {
+        0% { 
+            transform: rotateY(0deg);
+            
+        }
+        50% {
+            left: -40px;
+            
+        }
+        100% { 
+            transform: rotateY(360deg);
+            
+        }
+    }
+    @keyframes ring {
+        0%   { left:50% }
+        25%  { left:51% }
+        50% { left:50% }
+        75% { left:51%}
+        100%{ left:50%}
+    }
+
+    @keyframes spinRightY {
+        0% { 
+            transform: rotateY(0deg);
+            
+        }
+        50% {
+            left: 50px;
+            
+        }
+        100% { transform: rotateY(360deg); }
+    }
+
     @keyframes pulse {
         0% { box-shadow: 0 0 5px lime; }
         50% { box-shadow: 0 0 15px lime; }
@@ -76,12 +126,19 @@
         opacity: 0;
         transition: opacity 0.5s ease;
     }
+    button:hover::before {
+        opacity: 1;
+    }
+
+
+
+    /**__________________EMAIL BUTTON________________ */
     .email {
         position: relative;
     }
 
 
-    .email .icon {
+    .email .email-icon {
         position: absolute;
         top: 10px;
         left: 50%;
@@ -96,7 +153,7 @@
     }
     
     
-    .icon::before, .icon::after {
+    .email-icon::before, .icon::after {
         content: "";
         position: absolute;
         width: 0;
@@ -105,7 +162,7 @@
         border-right: 15px solid transparent;
     }
 
-    .icon::before {
+    .email-icon::before {
         border-bottom: 12px solid lime;
         top: -12px;
         left: 0;
@@ -114,7 +171,7 @@
         transform-origin: bottom center;
     }
 
-    .icon::after {
+    .email-icon::after {
         border-top: 12px solid lime;
         bottom: 8px;
         left: 0;
@@ -122,13 +179,110 @@
     }
 
 
-    .email:hover .icon::before {
+    .email:hover .email-icon::before {
         transform: rotateX(0deg);
     }
 
 
-    button:hover::before {
-        opacity: 1;
+    /**__________________GITHUB BUTTON________________ */
+    .github{
+        position: relative;
+    }
+    .github-icon {
+        
+        color:lime;
+        font-size: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        
+    }
+
+    .github-icon::before {
+        content: "<";
+        position: absolute;
+        left: -5px;
+        top: -5px;
+        font-size: 30px;
+        color: lime;
+        
+
+        transform-origin: center left;
+
+    }
+    .github-icon::after {
+        content: ">";
+        position: absolute;
+        left: 15px;
+        top: -5px;
+        font-size: 30px;
+        color: lime;
+        box-shadow: 0 0 6px lime;
+
+        transform-origin: center right;
+    }
+    .github-icon:hover::before{
+        animation: spinLeftY 1.5s linear alternate;
+    }
+    .github-icon:hover::after{
+        animation: spinRightY 1.5s linear alternate;
+    }
+
+    /**__________________PHONE BUTTON________________ */
+    
+    
+    .phone{
+        position: relative;
+    }
+    .phone-icon {
+        height: 30px;
+        width: 20px;
+        position: absolute;
+        border: 2px solid lime;
+        border-radius: 4px;
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        
+    }
+    
+    .phone-icon::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 10px;
+        height: 2px;
+        background-color: lime;
+        border-radius: 1px;
+    }
+
+
+    .phone-icon::after {
+        content: "";
+        position: absolute;
+        bottom: 3px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        border: 1px solid lime;
+        border-radius: 50%;
+    }
+    .phone-icon:hover{
+        animation: pulse 0.5s ease-in-out infinite;
+        animation: ring 0.5s ease-in-out infinite;
+    }
+    .parent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
 </style>
