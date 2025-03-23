@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import GreetSection from './HomePageComponents/GreetSection.vue';
 import AboutSection from './HomePageComponents/AboutSection.vue';
+import ContactsSection from './HomePageComponents/ContactsSection.vue';
 import { ref, onMounted } from 'vue';
 import Particle from '../utils/Particle.ts';
 import {changeLang} from '../modules/langStore.ts'
+
+
 
 onMounted(()=>{ //lifecycle of vue
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -91,7 +94,7 @@ onMounted(()=>{ //lifecycle of vue
             ctx.moveTo(0, 0); 
             ctx.lineTo(0, canvas.height);
 
-            ctx.lineWidth = 5;
+            ctx.lineWidth = 7;
             ctx.strokeStyle = 'lime';        
             ctx.shadowColor = 'lime';        
             ctx.shadowBlur = 30;                
@@ -149,6 +152,7 @@ onMounted(()=>{ //lifecycle of vue
     }
     .side-menu.visible {
         left: 0;
+        
     }
 
     ul {
@@ -169,6 +173,7 @@ onMounted(()=>{ //lifecycle of vue
     <div>
         <GreetSection/>
         <AboutSection />
+        <ContactsSection/>
     </div>
 
     <div id="side-menu" class="side-menu">

@@ -7,5 +7,11 @@ export default {
         part-time since 2021 alongside my studies, which has helped me develop solid skills in independent work, time management, 
         and quick decision-making. In addition, I speak German and English at a B2 level, and I am always open to learning new 
         things and growing as a professional.`
+    },
+    contacts: {
+        title: "Let's connect: ",
+        phone: "+43(681)81694562",
+        github: "https://github.com/yahorpaulson",
+        email: "yahorforall@gmail.com"
     }
 }

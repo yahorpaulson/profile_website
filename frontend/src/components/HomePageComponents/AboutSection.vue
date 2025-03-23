@@ -1,23 +1,5 @@
 <script setup lang="ts">
-
-  import en from "./../../lang/eng";
-  import de from "./../../lang/deu";
-  import be from "./../../lang/bel";
-  import {lang} from "../../modules/langStore"
-
-
-  import { ref, computed } from 'vue';
-
-
-  const translations = { en, be, de };
-  const t = computed(() => translations[lang.value]);
-
-
-  function changeLang(langCode: 'en' | 'de' | 'be') {
-    lang.value = langCode;
-  }
-
-
+  import {t} from './../../modules/langStore'
 </script>
 
 <template>
@@ -28,7 +10,7 @@
       </div>
       <img src="./../../assets/FkXe0iXk.jpeg" height="200" class="profile-photo" />
     </div>
-  </template>
+</template>
 
 <style lang="css" scoped>
 *{
@@ -66,6 +48,7 @@
   border-radius: 10px;
   box-shadow: 0 0 10px lime;
   margin-left: 15%;
+  transition: 1s ease-in-out;
   
 }
 
