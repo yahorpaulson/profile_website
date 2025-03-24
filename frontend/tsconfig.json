@@ -23,7 +23,8 @@
     }
   },
   "include": [
-    "src"
+    "src",
+    "../shared/modules/project.ts"
   ],
   "references": [
     {

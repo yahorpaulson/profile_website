@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {t} from './../../modules/langStore'
-    import { Project} from '../../modules/project'
+    import { Project} from '../../../../shared/modules/project'
     import { computed } from 'vue';
 
     const projects = computed<Project[]>(() => {
