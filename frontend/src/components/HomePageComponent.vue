@@ -2,6 +2,7 @@
 import GreetSection from './HomePageComponents/GreetSection.vue';
 import AboutSection from './HomePageComponents/AboutSection.vue';
 import ContactsSection from './HomePageComponents/ContactsSection.vue';
+import ProjectsSection from './HomePageComponents/ProjectsSection.vue';
 import { ref, onMounted } from 'vue';
 import Particle from '../utils/Particle.ts';
 import {changeLang} from '../modules/langStore.ts'
@@ -173,6 +174,7 @@ onMounted(()=>{ //lifecycle of vue
     <div>
         <GreetSection/>
         <AboutSection />
+        <ProjectsSection/>
         <ContactsSection/>
     </div>
 

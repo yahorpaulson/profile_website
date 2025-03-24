@@ -12,5 +12,14 @@ export default {
         phone: "+43(681)81694562",
         github: "https://github.com/yahorpaulson",
         email: "yahorforall@gmail.com"
+    },
+    projects: {
+        title: "Meine Projekte:",
+        project: {
+            title: "«Internet-Marktplatz»",
+            link: "https://github.com/yahorpaulson/online-marketplace",
+            description: "plain project description"
+        }
+
     }
 }
