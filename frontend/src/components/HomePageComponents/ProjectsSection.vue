@@ -1,21 +1,23 @@
 <script setup lang="ts">
     import {t} from './../../modules/langStore'
-    import { Project} from '../../../../shared/modules/project'
-    import { computed } from 'vue';
+    import { Project } from '../../../../shared/modules/project';
+    import { ref, computed, onMounted } from 'vue';
 
-    const projects = computed<Project[]>(() => {
-    const raw = t.value.projects.project;
+    const projects = ref<Project[]>([]);
+    
+    const isLoading = ref(true);
 
-    if (Array.isArray(raw)) {
-        return raw.map(p => ({
-            ...p,
-            slug: generateSlug(p.title)
-        }));} 
-        else {
-            console.error("Expected an array of projects, got:", raw);
-            return [];
-        }
-    });
+    onMounted(async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/projects');
+            const data = await response.json();
+            projects.value = data;
+    } catch (error) {
+        console.error('Failed to fetch projects:', error);
+    } finally {
+        isLoading.value = false;
+    }
+});
 
     function generateSlug(title: string): string {
         return title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
@@ -29,29 +31,35 @@
 
 
 <template>
-    <div class="projects-wrapper">
-        <h1 class="titleProjects">{{ t.projects.title  }}</h1>
+    <section class="projects-wrapper">
+      <h2>My Projects</h2>
+      <div class="cards-wrapper">
+        <div
+          class="project"
+          v-for="project in projects"
+          :key="project.title"
+        >
+        <a
+            v-if="project.link"
+            :href="project.link"
+            target="_blank"
+            class="github-icon"
+          >
+            &lt;/&gt;
+          </a>
 
-        <div class="cards-wrapper">
-            <div class="project" 
-                v-for="project in projects">
-
-                
-                <h2>{{ project.title }}</h2>
-                <a class="github-icon" v-if="project.link"
-                    :href="project.link" target="{{ project.link }}">
-                    &lt;/&gt;
-                </a>
-
-                
-
-                <div>{{ project.description }}</div>
-               
-            </div>
-            
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.shortDescription }}</p>
+  
+          <ul v-if="project.tags?.length">
+            <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
+          </ul>
         </div>
-    </div>
-</template>
+      </div>
+    </section>
+  </template>
+  
+  
 
 
 
@@ -118,6 +126,9 @@
     .project:hover .github-icon {
         animation: moveicon 2s ease-in-out infinite;
         
+    }
+    li{
+        font-size: small;
     }
 
 </style>
