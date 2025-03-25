@@ -2,10 +2,16 @@
     import {t} from './../../modules/langStore'
     import { Project } from '../../../../shared/modules/project';
     import { ref, computed, onMounted } from 'vue';
+    import { useRouter } from 'vue-router'; 
+    import ProjectDetails from '../ProjectComponents/ProjectDetails.vue';
+    
+    
 
     const projects = ref<Project[]>([]);
     
     const isLoading = ref(true);
+
+    const router = useRouter();
 
     onMounted(async () => {
         try {
@@ -30,23 +36,15 @@
     }
 
     async function projectDetailsTransfer(title: string){
+
+
         const slug = titleToSlug(title);
 
-        console.log("This i slug before fetching: ", slug);
-        try{
-            const response = await fetch(`http://localhost:3000/api/projects/${encodeURIComponent(slug)}`);
-            const data = await response.json();
-            console.log(data);
 
-        } catch (error){
-            console.error('Failed to fetch project:', error);
-        }
+        router.push({ path:`/projects/${slug}`});
+
     };
-    
 
-    
-
-    
     
 </script>
 
