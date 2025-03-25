@@ -27,7 +27,7 @@ client.connect().then(() => {
     projectsCollection = db.collection<Project>('projects');
     console.log('[SUCCESS]: Connected to MongoDB in /routes/projects');
 }).catch(err => {
-    console.error('[ERROR]: Failed to connect to to MongoDB in /routes/projects');
+    console.error('[ERROR]: Failed to connect to to MongoDB in /routes/projects', err);
 })
 
 
@@ -42,12 +42,20 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
     }
 })
 
-router.get('/project/:title', async (req: Request, res: Response): Promise<void> => {
+
+
+
+
+router.get('/:slug', async (req: Request, res: Response): Promise<void> => {
     try {
-        const project = await projectsCollection.findOne({ title: req.params.title });
-        res.json(project);
+        console.log('GET', req.params.slug);
+        const project = await projectsCollection.findOne({ slug: req.params.slug });
+
+        res.status(200).json(project);
+
+
     } catch (err) {
-        res.status(404).json({ message: 'Project not found' });
+        res.status(500).json({ message: '[ERROR]: Error fetching project' });
     }
 })
 

@@ -6,5 +6,6 @@ export interface Project {
     link?: string,
     inProgress: boolean,
     goals?: string[],
-    insights?: string[]
+    insights?: string[],
+    slug: string
 }

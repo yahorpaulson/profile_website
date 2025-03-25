@@ -17,7 +17,34 @@
         } finally {
             isLoading.value = false;
         }
-});
+    });
+
+    
+    
+
+    function titleToSlug(title: string): string {
+        return title
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)+/g, '');
+    }
+
+    async function projectDetailsTransfer(title: string){
+        const slug = titleToSlug(title);
+
+        console.log("This i slug before fetching: ", slug);
+        try{
+            const response = await fetch(`http://localhost:3000/api/projects/${encodeURIComponent(slug)}`);
+            const data = await response.json();
+            console.log(data);
+
+        } catch (error){
+            console.error('Failed to fetch project:', error);
+        }
+    };
+    
+
+    
 
     
     
@@ -27,11 +54,11 @@
 <template>
     <section class="projects-wrapper">
       <h2>My Projects</h2>
-      <div class="cards-wrapper">
+      <div class="cards-wrapper" >
         <div
           class="project"
           v-for="project in projects"
-          :key="project.title"
+          :key="project.title" @click="projectDetailsTransfer(project.title)"
         >
         <a
             v-if="project.link"
