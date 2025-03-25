@@ -3,6 +3,7 @@ import { Project } from '@shared/modules/project';
 import { Collection, MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import { error } from 'console';
+import { title } from 'process';
 
 dotenv.config();
 
@@ -38,6 +39,15 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
         res.json(projects);
     } catch (err) {
         res.status(500).json({ message: 'Error fetching projects', error: err });
+    }
+})
+
+router.get('/project/:title', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const project = await projectsCollection.findOne({ title: req.params.title });
+        res.json(project);
+    } catch (err) {
+        res.status(404).json({ message: 'Project not found' });
     }
 })
 

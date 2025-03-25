@@ -12,20 +12,14 @@
             const response = await fetch('http://localhost:3000/api/projects');
             const data = await response.json();
             projects.value = data;
-    } catch (error) {
-        console.error('Failed to fetch projects:', error);
-    } finally {
-        isLoading.value = false;
-    }
+        } catch (error) {
+            console.error('Failed to fetch projects:', error);
+        } finally {
+            isLoading.value = false;
+        }
 });
 
-    function generateSlug(title: string): string {
-        return title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-    }
-
-
-
-
+    
     
 </script>
 
