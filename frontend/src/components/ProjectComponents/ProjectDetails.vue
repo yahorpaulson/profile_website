@@ -4,7 +4,9 @@
     import {ref} from 'vue';
     import { Project } from '../../../../shared/modules/project';
     import BackgroundCanvas from '../BackgroundCanvas.vue';
-    import {changeLang} from '../../modules/langStore'
+    import {changeLang, lang} from '../../modules/langStore'
+    import LanguageSwitcher from '../LanguageSwitcher.vue';
+    import {t} from './../../modules/langStore' 
 
 
     const project = ref<Project | null>(null);
@@ -29,28 +31,30 @@
 
 <template>
     <BackgroundCanvas/>
+    <LanguageSwitcher/>
 
     <div class="details-container">
-        <h1>{{ project?.title }}</h1>
+        <h1>{{ project?.title[lang] }}</h1>
 
 
         <div class="desc">
-            {{ project?.description }}
+            {{ project?.description[lang] }}
         </div>
 
-        <div class="goals" v-if="project?.goals?.length">
-            <strong>Goals:</strong>
+        <div class="goals" v-if="project?.goals?.[lang]?.length">
+            <strong>{{ t.titles.project.goals }}</strong>
             <ul>
-                <li v-for="(item, index) in project.goals" :key="index">{{ item }}</li>
+                <li v-for="(item, index) in project.goals?.[lang]" :key="index">{{ item }}</li>
             </ul>
         </div>
 
+
         
 
-        <div class="insights" v-if="project?.insights">
-            <strong>Insights:</strong>
+        <div class="insights" v-if="project?.insights?.[lang]?.length">
+            <strong>{{ t.titles.project.insights }}</strong>
             <ul>
-                <li v-for="(item, index) in project.insights" :key="index">{{ item }}</li>
+                <li v-for="(item, index) in project?.insights?.[lang]" :key="index">{{ item }}</li>
             </ul>
         </div>
 
@@ -58,7 +62,7 @@
         
 
         <div class="tags" v-if="project?.tags?.length">
-            <strong>Tags:</strong>
+            <strong>{{ t.titles.project.tags }}</strong>
             <ul>
                 <li v-for="(tag, index) in project.tags" :key="index">{{ tag }}</li>
             </ul>

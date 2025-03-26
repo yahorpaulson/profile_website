@@ -1,7 +1,6 @@
 <script setup lang="ts">
     import { onMounted } from 'vue';
     import Particle from '../utils/Particle';
-    import { changeLang } from '../modules/langStore';
     
 
     onMounted(() => {
@@ -83,16 +82,7 @@
 
         initParticles();
         animate();
-        showSideMenu();
-
-        function showSideMenu() {
-            const menu = document.getElementById('side-menu');
-            if (menu && mouse.x !== null && mouse.x <= 100) {
-                menu.classList.add('visible');
-            } else if (menu) {
-                menu.classList.remove('visible');
-            }
-        }
+        
     });
 
 </script>
@@ -100,15 +90,6 @@
 <template>
 
     <canvas id="canvas" class="background-canvas"></canvas>
-
-
-    <div id="side-menu" class="side-menu">
-        <ul>
-            <li @click="changeLang('en')">EN</li>
-            <li @click="changeLang('be')">BE</li>
-            <li @click="changeLang('de')">DE</li>
-        </ul>
-    </div>
 
 </template>
 
@@ -128,22 +109,7 @@
         background-color: black;
         z-index: 0
     }
-    .side-menu {
-        position: fixed;
-        top: 0;
-        left: -200px;
-        width: 200px;
-        height: 100vh;
-       
-        color: white;
-        z-index: 3;
-        transition: left 0.3s ease;
-        padding: 20px;
-    }
-    .side-menu.visible {
-        left: 0;
-        
-    }
+    
 
     ul {
         list-style-type: none;

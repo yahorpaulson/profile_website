@@ -8,9 +8,24 @@ export default {
         Außerdem spreche ich Deutsch und Englisch auf dem Niveau B2 und bin stets offen für Neues sowie motiviert, mich als Fachkraft weiterzuentwickeln.`
     },
     contacts: {
-        title: "Lass uns in Kontakt treten: ",
+
         phone: "+43(681)81694562",
         github: "https://github.com/yahorpaulson",
         email: "yahorforall@gmail.com"
+    },
+    titles: {
+        home: {
+            about: "Über mich:",
+            project: "Meine Projekte:",
+            feedback: "Bitte hinterlassen Sie Ihr Feedback:",
+            contacts: "Lass uns in Kontakt treten: ",
+        },
+        project: {
+            detailsTitle: "Projektdetails:",
+            goals: "Ziele:",
+            insights: "Erkenntnisse:",
+            tags: "Stichworte:"
+        }
     }
+
 }

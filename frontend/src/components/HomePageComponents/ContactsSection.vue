@@ -15,10 +15,12 @@
 </script>
 
 <template>
-       
-    <div class="contact-wrapper">
-        
 
+    <h1 class="contactTitle">{{ t.titles.home.contacts }}</h1>
+       
+    <div class="contact-wrapper" >
+        
+        
         <button class="email" @click="openEmail">
             <span class="icon email-icon"></span>
             {{ t.contacts.email }}

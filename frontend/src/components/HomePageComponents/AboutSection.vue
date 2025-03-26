@@ -5,7 +5,7 @@
 <template>
     <div class="about-wrapper">
       <div class="info">
-        <h1>{{ t.about.title }}</h1>
+        <h1>{{ t.titles.home.about }}</h1>
         <p>{{ t.about.text }}</p>
       </div>
       <img src="./../../assets/FkXe0iXk.jpeg" height="200" class="profile-photo" />
@@ -25,10 +25,6 @@
   align-items: center;
   
 }
-
-
-
-
 
 .info {
   flex: 1;

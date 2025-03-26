@@ -13,6 +13,23 @@ export default {
         phone: "+43(681)81694562",
         github: "https://github.com/yahorpaulson",
         email: "yahorforall@gmail.com"
+    },
+    titles: {
+        home: {
+            about: "About me:",
+            project: "My projects:",
+            feedback: "Please leave your feedback:",
+            contacts: "Contact me:",
+        },
+        project: {
+            detailsTitle: "Project Details:",
+            goals: "Goals:",
+            insights: "Insights:",
+            tags: "Tags:"
+        }
     }
+
+
+
 
 }

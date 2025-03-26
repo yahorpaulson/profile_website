@@ -1,13 +1,17 @@
 <script setup lang="ts">
     import {t} from './../../modules/langStore'
     import { Project } from '../../../../shared/modules/project';
-    import { ref, computed, onMounted } from 'vue';
-    import { useRouter } from 'vue-router'; 
-    import ProjectDetails from '../ProjectComponents/ProjectDetails.vue';
+    import { ref, onMounted } from 'vue';
+    import { useRouter } from 'vue-router';
+    import { lang } from './../../modules/langStore';
     
     
 
     const projects = ref<Project[]>([]);
+
+
+    
+
     
     const isLoading = ref(true);
 
@@ -23,6 +27,8 @@
         } finally {
             isLoading.value = false;
         }
+
+        
     });
 
     
@@ -35,45 +41,40 @@
             .replace(/(^-|-$)+/g, '');
     }
 
-    async function projectDetailsTransfer(title: string){
-
-
-        const slug = titleToSlug(title);
-
-
-        router.push({ path:`/projects/${slug}`});
-
-    };
-
+    function projectDetailsTransfer(slug: string) {
+        router.push({ path: `/projects/${slug}` });
+    }
     
 </script>
 
 
 <template>
+    
     <section class="projects-wrapper">
-      <h2>My Projects</h2>
-      <div class="cards-wrapper" >
-        <div
-          class="project"
-          v-for="project in projects"
-          :key="project.title" @click="projectDetailsTransfer(project.title)"
-        >
-        <a
-            v-if="project.link"
-            :href="project.link"
-            target="_blank"
-            class="github-icon"
-          >
-            &lt;/&gt;
-          </a>
+    
+        <h1>{{t.titles.home.project}}</h1>
+        <div class="cards-wrapper" >
+            <div
+                class="project"
+                v-for="project in projects"
+                :key="project.slug" @click="projectDetailsTransfer(project.slug)"
+                >
+                <a
+                    v-if="project.link"
+                    :href="project.link"
+                    target="_blank"
+                    class="github-icon"
+                    >&lt;/&gt;
+                </a>
 
-          <h3>{{ project.title }}</h3>
-          <p>{{ project.shortDescription }}</p>
+                <h3>{{ project.title[lang] }}</h3>
+
+                <p>{{ project.shortDescription[lang] }}</p>
   
-          <ul v-if="project.tags?.length">
-            <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
-          </ul>
-        </div>
+                <ul v-if="project.tags?.length">
+                    <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
+                </ul>
+            </div>
       </div>
     </section>
   </template>
@@ -102,6 +103,12 @@
         color: white;
         align-items: center;
         flex-wrap: wrap;
+    }
+    .projects-wrapper h1 {
+        font-size: 2rem; /* или 32px */
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        text-align: center;
     }
     .cards-wrapper {
         display: flex;
