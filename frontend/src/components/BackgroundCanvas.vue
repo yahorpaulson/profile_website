@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { onMounted } from 'vue';
     import Particle from '../utils/Particle';
+    import { changeLang } from '../modules/langStore';
     
 
     onMounted(() => {
@@ -100,10 +101,19 @@
 
     <canvas id="canvas" class="background-canvas"></canvas>
 
+
+    <div id="side-menu" class="side-menu">
+        <ul>
+            <li @click="changeLang('en')">EN</li>
+            <li @click="changeLang('be')">BE</li>
+            <li @click="changeLang('de')">DE</li>
+        </ul>
+    </div>
+
 </template>
 
 
-<style lang="css" scoped>
+<style lang="css">
 
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
     *{

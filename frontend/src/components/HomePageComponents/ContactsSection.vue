@@ -4,14 +4,22 @@
     function openGithub(){
         window.open(t.value.contacts.github);
     }
+
+    function openEmail() {
+        window.location.href = `mailto:${t.value.contacts.email}?subject=Yahor Paulson Website`;
+    }
+
+    function callMe(){
+        window.location.href = `tel: ${t.value.contacts.phone}`;
+    }
 </script>
 
 <template>
-    <h1 class="contactTitle">{{ t.contacts.title }}</h1>
+       
     <div class="contact-wrapper">
         
 
-        <button class="email">
+        <button class="email" @click="openEmail">
             <span class="icon email-icon"></span>
             {{ t.contacts.email }}
         </button>
@@ -21,7 +29,7 @@
             {{ t.contacts.github }}
         </button>
 
-        <button class="tel">
+        <button class="tel" @click="callMe">
             <span class="icon phone-icon"></span>
             {{ t.contacts.phone }}
         </button>
@@ -77,7 +85,7 @@
 
     *{
         position: relative;
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        
     }
     .contact-wrapper{
         display: flex;
@@ -96,7 +104,6 @@
         margin-bottom: 50px;
     }
     button{
-        font-family: 'Share Tech Mono', monospace;
         background-color: transparent;
         overflow: hidden;
         color: white;

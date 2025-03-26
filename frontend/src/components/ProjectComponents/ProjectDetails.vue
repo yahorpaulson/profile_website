@@ -4,6 +4,7 @@
     import {ref} from 'vue';
     import { Project } from '../../../../shared/modules/project';
     import BackgroundCanvas from '../BackgroundCanvas.vue';
+    import {changeLang} from '../../modules/langStore'
 
 
     const project = ref<Project | null>(null);
@@ -19,8 +20,8 @@
             project.value = data;
         } catch (e) {
             console.error('Error loading project details:', e);
-    }
-});
+        }
+    });
 
     
 </script>
@@ -37,18 +38,30 @@
             {{ project?.description }}
         </div>
 
+        <div class="goals" v-if="project?.goals?.length">
+            <strong>Goals:</strong>
+            <ul>
+                <li v-for="(item, index) in project.goals" :key="index">{{ item }}</li>
+            </ul>
+        </div>
+
         
 
-        <div class="insights">
-            {{ project?.insights }}
+        <div class="insights" v-if="project?.insights">
+            <strong>Insights:</strong>
+            <ul>
+                <li v-for="(item, index) in project.insights" :key="index">{{ item }}</li>
+            </ul>
         </div>
 
-        <div class="goals">
-            {{ project?.goals }}
-        </div>
 
-        <div class="tags">
-            {{ project?.tags }}
+        
+
+        <div class="tags" v-if="project?.tags?.length">
+            <strong>Tags:</strong>
+            <ul>
+                <li v-for="(tag, index) in project.tags" :key="index">{{ tag }}</li>
+            </ul>
         </div>
 
 
@@ -56,3 +69,31 @@
     </div>
 
 </template>
+
+
+<style scoped>
+    .details-container{
+        display: flex;
+        flex-direction: column;
+        color: white;
+        position: relative;
+        align-items: center;
+        padding: 10%;
+        gap: 20px;
+        
+    }
+    *{
+        cursor: default;
+    }
+    .tags li,
+    .insights li,
+    .goals li {
+        cursor: default !important;
+    }
+    .tags{
+        display: flex;
+        flex-direction: row;
+    }
+
+    
+</style>
