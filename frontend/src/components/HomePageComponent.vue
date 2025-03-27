@@ -13,11 +13,39 @@
     <ParticleBackground/>
     <LanguageSwitcher/>
 
-    <div>
-        <GreetSection/>
-        <AboutSection />
-        <ProjectsSection/>
-        <ContactsSection/>
-    </div>
+    
+    <div class="greet"> <GreetSection /></div>
+    <div class="about"><AboutSection /></div>
+    <div class="projects"><ProjectsSection /></div>
+    <div class="contacts"><ContactsSection /></div>
+    
+
+    <footer class="footer">
+  ©     {{ new Date().getFullYear() }} Yahor Paulson. All rights reserved.
+    </footer>
 
 </template>
+
+
+
+    
+    
+
+<style>
+
+    .about{
+        margin-bottom: 20%;
+    }
+    
+    
+    .footer {
+        text-align: center;
+        color: lime;
+        font-size: 0.9rem;
+        font-family: 'VT323', monospace;
+        text-shadow: 0 0 8px lime;
+        margin-bottom: 2%;
+    }
+
+
+</style>

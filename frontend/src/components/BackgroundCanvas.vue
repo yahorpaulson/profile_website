@@ -107,7 +107,7 @@
         width: 100vw;
         min-height: 100vh;
         background-color: black;
-        z-index: 0
+        z-index: -1
     }
     
 

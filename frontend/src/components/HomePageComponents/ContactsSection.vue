@@ -294,5 +294,32 @@
         align-items: center;
     }
 
+    @media (max-width: 600px) {
+  .contact-wrapper {
+    flex-direction: row;
+    gap: 1rem;
+    
+    
+  }
+
+  .email,
+  .github,
+  .tel {
+    font-size: 0;
+    position: relative;
+    
+  }
+
+  .email .email-icon,
+  .github .github-icon,
+  .tel .phone-icon {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+
+
 </style>
 
