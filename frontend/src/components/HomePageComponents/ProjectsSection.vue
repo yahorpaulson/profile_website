@@ -4,6 +4,7 @@
     import { ref, onMounted } from 'vue';
     import { useRouter } from 'vue-router';
     import { lang } from './../../modules/langStore';
+
     
     
 
@@ -19,10 +20,14 @@
 
     onMounted(async () => {
         try {
+            console.log(import.meta.env.VITE_API_URL);
+
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/projects`);
 ;
             const data = await response.json();
             projects.value = data;
+            console.log('Projects:', data);
+
         } catch (error) {
             console.error('Failed to fetch projects:', error);
         } finally {
@@ -68,9 +73,9 @@
                     >&lt;/&gt;
                 </a>
 
-                <h3>{{ project.title[lang] }}</h3>
+                <h3>{{ project.title?.[lang] || 'No title' }}</h3>
 
-                <p>{{ project.shortDescription[lang] }}</p>
+                <p>{{ project.shortDescription?.[lang] || 'No description' }}</p>
   
                 <ul v-if="project.tags?.length">
                     <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
