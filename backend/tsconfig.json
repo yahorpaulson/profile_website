@@ -2,22 +2,22 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "CommonJS",
-    "rootDir": "../",
+    "rootDir": ".",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "baseUrl": "../",
+    "baseUrl": ".",
     "paths": {
       "@shared/*": [
-        "shared/*"
+        "../shared/*"
       ]
     }
   },
   "include": [
     "src",
-    "../shared"
+    "../shared",
+    "shared"
   ],
   "exclude": [
     "node_modules",

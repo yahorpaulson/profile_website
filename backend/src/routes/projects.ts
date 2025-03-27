@@ -1,9 +1,8 @@
 import { Router, Request, Response } from 'express';
-import { Project } from '@shared/modules/project';
+
 import { Collection, MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
-import { error } from 'console';
-import { title } from 'process';
+import { Project } from '../../shared/modules/project';
 
 dotenv.config();
 

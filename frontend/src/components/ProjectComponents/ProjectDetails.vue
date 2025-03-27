@@ -17,7 +17,8 @@
     onMounted(async () => {
         const slug = route.params.slug as string;
         try {
-            const res = await fetch(`http://localhost:3000/api/projects/${encodeURIComponent(slug)}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${encodeURIComponent(slug)}`);
+
             const data = await res.json();
             project.value = data;
         } catch (e) {
