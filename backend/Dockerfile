@@ -13,8 +13,13 @@ RUN npm install
 # Copy source code
 COPY . .
 
+
+
 # Build TypeScript
 RUN npm run build
+
+# Указываем .env (если нужен)
+COPY .env .env
 
 # Expose port
 EXPOSE 3000
