@@ -306,15 +306,25 @@
     .email,
     .github,
     .tel {
-        font-size: 0;
+        
         position: relative;
     }
 
-  .email .email-icon,
-  .github .github-icon,
-  .tel .phone-icon {
-    top: 50%;
-    transform: translate(-50%, -50%);
+    .email .email-icon,
+    .github .github-icon,
+    .tel .phone-icon {
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @media (max-width: 600px) {
+        .contact-wrapper {
+            flex-direction: row;
+            flex-grow: 1;
+            margin-left: 5%;
+            margin-right: 5%;
+            font-size: 0;
+        }
     }
 
 
