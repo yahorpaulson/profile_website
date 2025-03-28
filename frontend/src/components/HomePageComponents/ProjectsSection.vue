@@ -6,13 +6,8 @@
     import { lang } from './../../modules/langStore';
 
     
-    
 
     const projects = ref<Project[]>([]);
-
-
-    
-
     
     const isLoading = ref(true);
 
@@ -20,9 +15,7 @@
 
     onMounted(async () => {
         try {
-
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/projects`);
-;
             const data = await response.json();
             projects.value = data;
             
@@ -33,17 +26,16 @@
             isLoading.value = false;
         }
 
-        
     });
 
-    
-    
+    function onLoad(){
+        const loadingText = document.getElementsByClassName('loading')[0] as HTMLElement;
+        if (!isLoading.value) {
+            loadingText.style.textDecoration = 'none';
+        } else {
+            loadingText.style.textDecoration = 'block';
+        }
 
-    function titleToSlug(title: string): string {
-        return title
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/(^-|-$)+/g, '');
     }
 
     function projectDetailsTransfer(slug: string) {
@@ -58,6 +50,10 @@
     <section class="projects-wrapper">
     
         <h1>{{t.titles.home.project}}</h1>
+
+
+        <h1 v-if="isLoading" class="loading">Loading...Please wait..</h1>
+
         <div class="cards-wrapper" >
             <div
                 class="project"
@@ -82,13 +78,19 @@
             </div>
       </div>
     </section>
-  </template>
+</template>
   
   
 
 
 
 <style lang="css" scoped>
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.2; }
+    }
+
+    
     @keyframes moveicon{
         0%{
             left: 0px;
@@ -160,6 +162,10 @@
     }
     li{
         font-size: small;
+    }
+    .loading {
+        text-shadow: 0 0 10px  lime;
+        animation: pulse 1.5s infinite ease-in-out;
     }
 
 </style>
