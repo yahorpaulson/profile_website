@@ -295,28 +295,30 @@
     }
 
     @media (max-width: 600px) {
-  .contact-wrapper {
-    flex-direction: row;
-    gap: 1rem;
-    
-    
-  }
+        .contact-wrapper {
+            flex-direction: row;
+            flex-grow: 1;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+    }
 
-  .email,
-  .github,
-  .tel {
-    font-size: 0;
-    position: relative;
-    
-  }
+    .email,
+    .github,
+    .tel {
+        font-size: 0;
+        position: relative;
+    }
 
   .email .email-icon,
   .github .github-icon,
   .tel .phone-icon {
     top: 50%;
     transform: translate(-50%, -50%);
-  }
-}
+    }
+
+
+
 
 
 

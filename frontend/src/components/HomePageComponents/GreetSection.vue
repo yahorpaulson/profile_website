@@ -5,8 +5,6 @@
     </div>
 </template>
 
-
-
 <style scoped>
 
 @keyframes slideInFromLeft {
@@ -21,7 +19,7 @@
 }
 @keyframes appear {
     from {
-        opacity: 0; /* make things invisible upon start */
+        opacity: 0; 
         
     }
     to {
@@ -54,6 +52,12 @@
         animation: 5s ease 1s 1 appear; /* 5s duration, 1s delay, 1 iteration */
         animation-fill-mode: forwards; /* keep the final state */
 
+    }
+    @media (max-width:600px) {
+        div {
+            max-width: 100%;
+            align-items: center;
+        }
     }
 
 

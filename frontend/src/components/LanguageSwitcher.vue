@@ -19,7 +19,7 @@
     function handleMouseMove(event: MouseEvent) {
         mouse.x = event.x;
         mouse.y = event.y;
-        isVisible.value = mouse.x <= 100; 
+        isVisible.value = mouse.x <= 80; 
         
     }
 
@@ -47,5 +47,10 @@
     }
     li:hover {
     cursor: pointer;
+    }
+
+
+    @media (max-width:600px) {
+
     }
 </style>

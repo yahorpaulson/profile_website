@@ -60,7 +60,7 @@
         }
 
         function drawLeftBorderLine() {
-            if (mouse.x !== null && mouse.x < 300) {
+            if (mouse.x !== null && mouse.x < 150) {
                 ctx.save();
                 ctx.beginPath();
                 ctx.moveTo(0, 0);
