@@ -26,6 +26,9 @@ export default {
             insights: "Уражаньні / досвед:",
             tags: "Тэгі:"
         }
+    },
+    resume: {
+        text: 'Спампаваць маю рэзюмэ...'
     }
 
 

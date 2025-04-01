@@ -27,6 +27,9 @@ export default {
             insights: "Insights:",
             tags: "Tags:"
         }
+    },
+    resume: {
+        text: 'Access to my resume...'
     }
 
 

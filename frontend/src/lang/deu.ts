@@ -26,6 +26,9 @@ export default {
             insights: "Erkenntnisse:",
             tags: "Stichworte:"
         }
+    },
+    resume: {
+        text: 'Zugriff auf meinen Lebenslauf...'
     }
 
 }

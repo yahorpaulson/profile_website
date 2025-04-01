@@ -1,30 +1,63 @@
 <template>
 
-
     <div class="link">
         <button class="download">
-            <a href="../../../public/YPSV.pdf" download="Yahor Paulson (Siarheyeu SV)">Access to my SV</a>
+            <a href="/YPSV.pdf" download="Yahor Paulson (Siarheyeu_SV)">
+                {{ displayText }}
+            </a>
         </button>
-        
     </div>
-
-
 </template>
+  
+
+<script setup lang="ts">
+    import { ref, onMounted, onBeforeUnmount } from 'vue';
+    import { t } from '../../modules/langStore';
+
+    const fullText = t.value.resume.text;
+    const displayText = ref('');
+    const speed = 100;
+    const pause = 1000;
+
+    let i = 0;
+    let intervalId: number;
+
+    function startTyping() {
+        displayText.value = '';
+        i = 0;
+
+        intervalId = window.setInterval(() => {
+            if (i < fullText.length) {
+                displayText.value += fullText.charAt(i);
+                i++;
+            } else {
+                clearInterval(intervalId);
+                setTimeout(startTyping, pause);
+            }
+        }, speed);
+    }
+
+    onMounted(() => {
+        startTyping();
+    });
+
+    onBeforeUnmount(() => {
+        clearInterval(intervalId);
+    });
+</script>
+
+
+
+
+
 
 
 <style lang="css" scoped>
-
-    @keyframes blink{
-        0%{
-            opacity: 1;
-        }
-        50%{
-            opacity: 0;
-        }
-        100%{
-            opacity: 1;
-        }
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
     }
+
 
     .link{
         display: flex;
@@ -34,10 +67,10 @@
         min-height: 100px;
         align-items: center;
         justify-content: center;
+        margin-bottom: 50px;
+        opacity: 0.8;
 
         
-        /** Temporary hidden */
-        display: none;
     }
     .download{
 
@@ -47,15 +80,27 @@
         width: 500px;
         background-color: transparent;
         border-color: lime;
-        border-radius: 5%;
+        border-radius: 2%;
         box-shadow: 0 0 10px lime;
+        
     
     }
     a:link{
         color: white;
         text-decoration: none;
         font-size: 1.5rem;
-        animation: blink 1s infinite ease;
+    }
+    a::after{
+        content: "|";
+        animation: blink 1s step-end infinite;
+    }
+    button{
+        transition: 1s ease;
+    }
+    button:hover{
+        scale: 1.1;
+        background-color: black;
+        
     }
     
 

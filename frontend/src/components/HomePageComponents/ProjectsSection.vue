@@ -28,15 +28,7 @@
 
     });
 
-    function onLoad(){
-        const loadingText = document.getElementsByClassName('loading')[0] as HTMLElement;
-        if (!isLoading.value) {
-            loadingText.style.textDecoration = 'none';
-        } else {
-            loadingText.style.textDecoration = 'block';
-        }
-
-    }
+   
 
     function projectDetailsTransfer(slug: string) {
         router.push({ path: `/projects/${slug}` });
@@ -145,7 +137,7 @@
     
     .project:hover{
         background-color: black;
-        scale: 1.3;
+        scale: 1.1;
         z-index: 10;
         
     }
