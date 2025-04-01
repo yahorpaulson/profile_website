@@ -5,7 +5,7 @@ import ProjectDetails from '../components/ProjectComponents/ProjectDetails.vue'
 const routes = [
     { path: '/', component: HomePageComponent },
     { path: '/projects/:slug', component: ProjectDetails, props: true },
-    { path: 'projects/', redirect: '/' }
+    { path: '/projects/', redirect: '/' }
 ];
 
 const router = createRouter({
