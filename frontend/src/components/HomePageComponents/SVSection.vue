@@ -3,7 +3,7 @@
     <div class="link">
         <button class="download">
             <a href="/YPSV.pdf" download="Yahor Paulson (Siarheyeu_SV)">
-                {{ displayText }}
+                {{ t.resume.text }}
             </a>
         </button>
     </div>
@@ -12,9 +12,10 @@
 
 <script setup lang="ts">
     import { ref, onMounted, onBeforeUnmount } from 'vue';
-    import { t } from '../../modules/langStore';
+    import { t, lang } from '../../modules/langStore';
+    import { computed, watch } from 'vue';
 
-    const fullText = t.value.resume.text;
+    const fullText = computed(() => t.value.resume.text);
     const displayText = ref('');
     const speed = 100;
     const pause = 1000;
@@ -27,8 +28,8 @@
         i = 0;
 
         intervalId = window.setInterval(() => {
-            if (i < fullText.length) {
-                displayText.value += fullText.charAt(i);
+            if (i < fullText.value.length) {
+                displayText.value += fullText.value.charAt(i);
                 i++;
             } else {
                 clearInterval(intervalId);
@@ -44,6 +45,10 @@
     onBeforeUnmount(() => {
         clearInterval(intervalId);
     });
+    watch(fullText, () => {
+        startTyping();
+    });
+
 </script>
 
 
@@ -98,7 +103,7 @@
         transition: 1s ease;
     }
     button:hover{
-        scale: 1.1;
+        transform: scale(1.1);
         background-color: black;
         
     }
