@@ -4,6 +4,7 @@
     import { ref, onMounted } from 'vue';
     import { useRouter } from 'vue-router';
     import { lang } from './../../modules/langStore';
+    import { computed } from 'vue';
 
     
 
@@ -12,6 +13,8 @@
     const isLoading = ref(true);
 
     const router = useRouter();
+
+    const currentLang = computed(() => lang.value)
 
     onMounted(async () => {
         try {
@@ -60,9 +63,9 @@
                     >&lt;/&gt;
                 </a>
 
-                <h3>{{ project.title?.[lang] || 'No title' }}</h3>
+                <h3>{{ project.title?.[currentLang] || 'No title' }}</h3>
 
-                <p>{{ project.shortDescription?.[lang] || 'No description' }}</p>
+                <p>{{ project.shortDescription?.[currentLang] || 'No description' }}</p>
   
                 <ul v-if="project.tags?.length">
                     <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
