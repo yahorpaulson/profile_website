@@ -3,7 +3,7 @@
     <div class="link">
         <button class="download">
             <a href="/YPSV.pdf" download="Yahor Paulson (Siarheyeu_SV)">
-                {{ t.resume.text }}
+                {{ displayText }}
             </a>
         </button>
     </div>
@@ -22,8 +22,14 @@
 
     let i = 0;
     let intervalId: number;
+    let timeoutId: number = 0;
+
 
     function startTyping() {
+
+        clearInterval(intervalId);
+        clearTimeout(timeoutId);
+
         displayText.value = '';
         i = 0;
 
@@ -43,7 +49,10 @@
     });
 
     onBeforeUnmount(() => {
+        
         clearInterval(intervalId);
+        clearTimeout(timeoutId);
+
     });
     watch(fullText, () => {
         startTyping();
