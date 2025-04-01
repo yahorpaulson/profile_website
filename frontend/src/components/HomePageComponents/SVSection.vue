@@ -116,6 +116,12 @@
         background-color: black;
         
     }
+
+    @media (max-width: 600px){
+        .download{
+            margin: 60px;
+        }
+    }
     
 
 
