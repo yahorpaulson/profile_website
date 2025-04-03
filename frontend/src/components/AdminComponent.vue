@@ -19,17 +19,26 @@
             </tr>
           </tbody>
         </table>
-      </div>
+
+
+
+        <div class = "setField">
+            <input v-show="inputProjectNameVisible"
+            class="projectName" placeholder="Input the name of a project"></input>
+            <textarea
+                v-show="textareaVisible"
+                class="inputField"
+                placeholder="Type your project data here..."
+            ></textarea>
+        </div>
+
+        <button class="submit" v-show="submitVisible">Submit</button>
+    </div>
   
-      <div class = "setField">
-        <input v-show="inputProjectNameVisible"
-        class="projectName" placeholder="Input the name of a project"></input>
-        <textarea
-          v-show="textareaVisible"
-          class="inputField"
-          placeholder="Type your project data here..."
-        ></textarea>
-      </div>
+      
+
+
+      
     </div>
   </template>
   
@@ -38,10 +47,12 @@
   
     const textareaVisible = ref(false)
     const inputProjectNameVisible = ref(false)
+    const submitVisible = ref(false)
   
     function showTextarea() {
         textareaVisible.value = true
         inputProjectNameVisible.value = true
+        submitVisible.value = true
     }
   </script>
   
@@ -61,6 +72,7 @@
   }
 
   .setField{
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     width:fit-content;
@@ -72,6 +84,14 @@
         margin: 40px;
         height: 200px;
         width: 400px;
+    }
+
+    .submit {
+        display: flex;
+        align-items: center;
+        height: 3rem;
+        width: 20rem;
+        margin-left: 5rem;
     }
 </style>
   
