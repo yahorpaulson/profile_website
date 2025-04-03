@@ -16,11 +16,6 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/projects', projectsRouter);
 
-app.get("/ip-check", async (req, res) => {
-    const response = await fetch("https://api.ipify.org?format=json");
-    const ip = await response.json();
-    res.send(ip);
-});
 
 
 
