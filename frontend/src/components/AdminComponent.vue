@@ -1,5 +1,5 @@
 <template>
-  <div class="login-form">
+  <div class="login-form" v-if="!isLoggedIn">
     <h1>Admin Login</h1>
     <input v-model="username" placeholder="Username" />
     <input v-model="password" type="password" placeholder="Password" />
@@ -8,6 +8,9 @@
   <div class="admin" v-if="isLoggedIn">
 
     <h1>Yahor Paulson — ADMIN</h1>
+
+
+    <button class="logout" @click="logout">Logout</button>
 
 
 
@@ -109,25 +112,7 @@
 
   const currentAction = ref<'edit' | 'delete' | 'add' | null>(null)
 
-  const mockProjectDb = [
-    {
-      _id: '123',
-      title: {
-        en: 'Full-Stack Portfolio',
-        de: 'Full-Stack-Portfolio',
-        be: 'Поўны стек партфоліа'
-      },
-      description: {
-        en: 'A web-based showcase app',
-        de: '',
-        be: ''
-      },
-      link: 'https://github.com/yahorpaulson/profile_website',
-      tags: ['Vue', 'Node.js', 'MongoDB'],
-      inProgress: true,
-      slug: 'full-stack-portfolio'
-    }
-  ]
+  
 
   const editableProject = reactive<any>({})
   //const deleteProject = reactive<any>({})
@@ -139,34 +124,19 @@
     isLoggedIn.value = false
   }
 
-  function handleSlugSubmit() {
-    const slug = slugInput.value.trim()
-    const found = mockProjectDb.find(p => p.slug === slug)
-
-    if (!found) {
-      alert('Project not found')
-      return
-    }
-
-    switch (currentAction.value) {
-      case 'edit':
-        Object.assign(editableProject, JSON.parse(JSON.stringify(found)))
-        projectFound.value = true
-        break
-
-      case 'delete':
-        const confirmDelete = confirm(`Are you sure you want to delete "${found.slug}"?`)
-        if (confirmDelete) {
-          console.log('Project deleted:', found.slug)
-        
-        }
-        break
-
-      default:
-        console.warn('Unknown action:', currentAction.value)
-        break
+  async function handleSlugSubmit() {
+    const slug = slugInput.value.trim();
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`);
+      if (!res.ok) throw new Error('Not found');
+      const project = await res.json();
+      Object.assign(editableProject, JSON.parse(JSON.stringify(project)));
+      projectFound.value = true;
+    } catch {
+      alert('Project not found');
     }
   }
+
 
   async function login(username:string, password: string){
 
