@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "concurrently": "^9.1.2",
     "vite": "^6.2.3"
   }
