@@ -285,68 +285,52 @@
 </script>
 
 <style scoped>
-
-.logout{
-  width: 2rem;
-  height: 1rem;
-}
-.admin {
-  padding: 2rem;
-  font-family: sans-serif;
-}
-
-.action button {
-  padding: 8px 16px;
-}
-
-.slug-search {
-  margin: 1rem 0;
-  display: flex;
-  gap: 10px;
-}
-
 .edit-context-menu {
   margin-top: 2rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 1.5rem;
+  padding: 2rem;
   background: #f9f9f9;
-  max-width: 700px;
+  max-width: 800px;
+  font-family: 'Courier New', monospace;
 }
 
 .field-row {
   display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .field-row label {
-  width: 150px;
+  min-width: 140px;
   font-weight: bold;
+  margin-bottom: 0.3rem;
 }
 
 .field-row input[type='text'],
-.subfield input {
-  flex: 1;
+.field-row input[type='checkbox'],
+.field-row select {
+  flex: 1 1 200px;
   padding: 6px;
+  font-family: inherit;
 }
 
-.subfield {
-  display: flex;
-  gap: 1rem;
-  margin-left: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.subfield label {
-  width: 100px;
-}
-
-
-
-.save {
+button.save {
   margin-top: 2rem;
-  padding: 10px 20px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  cursor: pointer;
 }
+
+button.save:hover {
+  background-color: #f0f0f0;
+}
+
+.logout {
+  margin-bottom: 1rem;
+}
+
 </style>
