@@ -115,7 +115,7 @@
   
 
   const editableProject = reactive<any>({})
-  //const deleteProject = reactive<any>({})
+
   const addProject = reactive<any>({})
 
 
@@ -158,9 +158,68 @@
     }
   }
 
+  async function createProject() {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(addProject),
+      });
 
 
-  function startAction(action: 'edit' | 'delete' | 'add') {
+      if (!res.ok) {
+        const errMsg = await res.text();
+        throw new Error(`[ERROR]: ${errMsg}`);
+      }
+
+      startAction(null);
+      
+    } catch (error) {
+      console.error('[ERROR]: Error adding project', error);
+      
+    }
+  }
+
+
+
+  async function deleteProject() {
+    const slug = slugInput.value.trim()
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` },
+      })
+      if (!res.ok) throw new Error('Failed to delete project')
+      alert('Project deleted successfully')
+    } catch (error) {
+      console.error('Error deleting project:', error)
+      
+    }
+  }
+
+
+
+
+  async function editProject() {
+    const slug = slugInput.value.trim()
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`, {
+        method: 'PUT',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify(editableProject),
+      })
+      if (!res.ok) throw new Error('Failed to edit project')
+      alert('Project edited successfully')
+    } catch (error) {
+      console.error('Error editing project:', error)
+    }
+  }
+
+
+  function startAction(action: 'edit' | 'delete' | 'add'| null) {
     currentAction.value = action
     showSlugInput.value = action !== 'add'
     slugInput.value = ''
@@ -185,8 +244,16 @@
 
 
   function submitChange() {
+
+    if (currentAction.value === 'delete') {
+      deleteProject()
+    } else if (currentAction.value === 'edit') {
+      editProject()
+    } else if (currentAction.value === 'add') {
+      createProject()
+    }
   
-    console.log('🔧 Submitting changes:', editableProject)
+    
   }
 </script>
 

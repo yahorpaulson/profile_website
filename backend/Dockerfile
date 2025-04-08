@@ -1,28 +1,18 @@
 # syntax=docker/dockerfile:1
 
 # Use official Node.js LTS image
-FROM node:20.9.0-slim
+FROM node:23.11.0-slim
 
-# Create app directory
+
 WORKDIR /app
 
-# Install dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
-# Copy source code
 COPY . .
 
-
-
-# Build TypeScript
 RUN npm run build
 
-# Указываем .env (если нужен)
-COPY .env .env
-
-# Expose port
 EXPOSE 3000
+CMD ["npm", "start"]
 
-# Start the app
-CMD [ "npm", "start" ]

@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 
@@ -238,5 +238,7 @@ router.post('/admin', async (req: Request, res: Response): Promise<void> => {
     }
 }
 )
+
+
 
 export default router;
