@@ -143,7 +143,17 @@
 
   const editableProject = reactive<any>({})
 
-  const addProject = reactive<any>({})
+  const addProject = reactive<any>({      //initialized cannot be null
+    title: { en: '', de: '', be: '' },
+    shortDescription: { en: '', de: '', be: '' },
+    tags: '',
+    inProgress: false,
+    language: 'en',
+    description: '',
+    link: '',
+    slug: ''
+  });
+
 
 
   function logout() {
@@ -246,27 +256,37 @@
   }
 
 
-  function startAction(action: 'edit' | 'delete' | 'add'| null) {
-    currentAction.value = action
-    showSlugInput.value = action !== 'add'
-    slugInput.value = ''
+  function startAction(action: 'edit' | 'delete' | 'add' | null) {
+  currentAction.value = action
+  showSlugInput.value = action !== 'add'
+  slugInput.value = ''
+  projectFound.value = false
+
+  Object.keys(editableProject).forEach(key => delete editableProject[key])
+  Object.keys(addProject).forEach(key => delete addProject[key])
+
+  if (action === 'add') {
+    showSlugInput.value = false
     projectFound.value = false
-    Object.keys(editableProject).forEach(key => delete editableProject[key])
-    Object.keys(addProject).forEach(key => delete addProject[key])
-    if (action === 'add') {
-      showSlugInput.value = false
-      projectFound.value = false
-      editableProject.slug = ''
-      addProject.title = ''
-      addProject.shortDescription = ''
-      addProject.tags = ''
-      addProject.inProgress = false
-      addProject.language = 'en'
-      addProject.description = ''
-      addProject.link = ''
-    }
+
     
+    Object.assign(addProject, {
+      title: { en: '', de: '', be: '' },
+      shortDescription: { en: '', de: '', be: '' },
+      tags: '',
+      inProgress: false,
+      language: 'en',
+      description: '',
+      link: '',
+      slug: ''
+    })
+
+    Object.assign(editableProject, {
+      slug: ''
+    })
   }
+}
+
   
 
 
