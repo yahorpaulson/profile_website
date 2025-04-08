@@ -30,32 +30,59 @@
       </button>
 
     </div>
+
+
+    <!-- ADD FIELD -->
     <div v-if="currentAction === 'add' && !projectFound" class="edit-context-menu">
       <h2>Adding a new project</h2>
       <div class="field-row">
         <label for="slug">Slug</label>
-        <input v-model="editableProject.slug" type="text" id="slug" />
-        <label for="title">Title</label>
-        <input v-model="addProject.title" type="text" id="title" placeholder="Title" />
-        <label for="shortDescription">Short Description</label>
-        <input v-model="addProject.shortDescription" type="text" id="shortDescription" placeholder="Short Description" />
+        <input v-model="addProject.slug" type="text" id="slug" />
+        <div class="field-row">
+          <label>Title (EN)</label>
+          <input v-model="addProject.title.en" />
+          <label>Title (DE)</label>
+          <input v-model="addProject.title.de" />
+          <label>Title (BE)</label>
+          <input v-model="addProject.title.be" />
+        </div>
+
+        <div class="field-row">
+          <label>Short Description (EN)</label>
+          <input v-model="addProject.shortDescription.en" />
+          <label>Short Description (DE)</label>
+          <input v-model="addProject.shortDescription.de" />
+          <label>Short Description (BE)</label>
+          <input v-model="addProject.shortDescription.be" />
+        </div>
+
+
         <label for="tags">Tags</label>
         <input v-model="addProject.tags" type="text" id="tags" placeholder="Tags" />
         <label for="inProgress">In Progress</label>
         <input v-model="addProject.inProgress" type="checkbox" id="inProgress" placeholder="In Progress" />
-        <label for="language">Language:</label>
-        <select id="language" v-model="addProject.language">
-          <option value="en">EN</option>
-          <option value="de">DE</option>
-          <option value="be">BE</option>
-        </select>
         
-        <label for="description">Description</label>
-        <input v-model="addProject.description" type="text" id="description" placeholder="Description" />
+        <div class="field-row">
+          <label>Description (EN)</label>
+          <input v-model="addProject.description.en" />
+          <label>Description (DE)</label>
+          <input v-model="addProject.description.de" />
+          <label>Description (BE)</label>
+          <input v-model="addProject.description.be" />
+        
+        </div>
+
+
         <title>Link</title>
         <input v-model="addProject.link" type="text" id="link" placeholder="Link" />
       </div>
       <button class="save" @click="submitChange"> Save</button>
+
+
+
+
+
+      <!-- EDIT FIELD -->
     
       <div v-if="projectFound" class="edit-context-menu">
         <h2>Editing: {{ editableProject.slug }}</h2>
@@ -176,7 +203,7 @@
       }
 
       startAction(null);
-      
+
     } catch (error) {
       console.error('[ERROR]: Error adding project', error);
       
