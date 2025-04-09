@@ -180,27 +180,36 @@
   }
 
 
-  async function login(username:string, password: string){
-
+  async function login(username: string, password: string) {
     try {
       const url = `${import.meta.env.VITE_API_URL}/api/projects/admin/login`
-      console.log('Login request to:', url)
-
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
-      const data = await res.json();
-      token.value = data.token
+
+      if (!res.ok) {
+        const errorText = await res.text()
+        throw new Error(`Login failed: ${errorText}`)
+      }
+
+      const data = await res.json()
+      if (!data.token) throw new Error('No token received')
+
       localStorage.setItem('adminToken', data.token)
+      token.value = data.token
       isLoggedIn.value = true
 
-
-    } catch {
-      console.log("Error sending POST method");
+    } catch (err) {
+      alert('Login failed. Please check your username and password.')
+      console.error('[Login error]:', err)
+      localStorage.removeItem('adminToken')
+      token.value = null
+      isLoggedIn.value = false
     }
   }
+
 
   async function createProject() {
     try {
