@@ -5,16 +5,13 @@
     <input v-model="password" type="password" placeholder="Password" />
     <button @click="login(username, password)">Login</button>
   </div>
-  <div class="admin" v-if="isLoggedIn">
 
+
+
+  <div class="admin" v-if="isLoggedIn">
     <h1>Yahor Paulson — ADMIN</h1>
 
-
     <button class="logout" @click="logout">Logout</button>
-
-
-
-    
 
     <div class="action">
       <button class="change" @click="startAction('edit')">Change project</button>
@@ -116,7 +113,7 @@
           />
         </div>
 
-        <button class="save" @click="submitChange"> Save</button>
+        <button class="save" @click="submitChange">Save</button>
       </div>
     </div>
   </div>
@@ -124,14 +121,16 @@
 
 <script setup lang="ts">
   import { ref, reactive } from 'vue'
+  import { onMounted } from 'vue'
 
-  const isLoggedIn = ref<boolean>(!!localStorage.getItem('adminToken'));
+  const isLoggedIn = ref(false)
   
 
 
   const username = ref('')
   const password = ref('')
-  const token = localStorage.getItem('adminToken')
+  const token = ref<string | null>(null)
+
   // UI state
   const showSlugInput = ref(false)
   const slugInput = ref('')
@@ -154,9 +153,15 @@
     slug: ''
   });
 
+  
+  onMounted(() => {
+    token.value = localStorage.getItem('adminToken')
+    isLoggedIn.value = !!token.value
+  })
 
 
   function logout() {
+    token.value = null
     localStorage.removeItem('adminToken')
     isLoggedIn.value = false
   }
@@ -187,8 +192,10 @@
         body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
-      localStorage.setItem('adminToken', data.token);
-      isLoggedIn.value = true;
+      token.value = data.token
+      localStorage.setItem('adminToken', data.token)
+      isLoggedIn.value = true
+
 
     } catch {
       console.log("Error sending POST method");
@@ -201,7 +208,7 @@
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token.value}`,
         },
         body: JSON.stringify(addProject),
       });
@@ -227,7 +234,7 @@
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` },
+        headers: { 'Authorization': `Bearer ${token.value}` },
       })
       if (!res.ok) throw new Error('Failed to delete project')
       alert('Project deleted successfully')
@@ -245,7 +252,7 @@
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`, {
         method: 'PUT',
-        headers: { 'Authorization': `Bearer ${token}` },
+        headers: { 'Authorization': `Bearer ${token.value}` },
         body: JSON.stringify(editableProject),
       })
       if (!res.ok) throw new Error('Failed to edit project')
