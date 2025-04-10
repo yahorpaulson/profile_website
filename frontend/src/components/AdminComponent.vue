@@ -54,8 +54,9 @@
         </div>
 
 
-        <label for="tags">Tags</label>
-        <input v-model="addProject.tags" type="text" id="tags" placeholder="Tags" />
+        <label for="tags">Tags (comma separated)</label>
+        <input v-model="tagsInput" type="text" id="tags" placeholder="e.g. vue, vite, typescript" />
+
         <label for="inProgress">In Progress</label>
         <input v-model="addProject.inProgress" type="checkbox" id="inProgress" placeholder="In Progress" />
         
@@ -134,6 +135,8 @@
   // UI state
   const showSlugInput = ref(false)
   const slugInput = ref('')
+  const tagsInput = ref('')
+  const inProgressInput = ref(false)
   const projectFound = ref(false)
 
   const currentAction = ref<'edit' | 'delete' | 'add' | null>(null)
@@ -213,6 +216,10 @@
 
   async function createProject() {
     try {
+      addProject.tags = tagsInput.value
+        .split(',')
+        .map(tag => tag.trim())
+        .filter(tag => tag !== '')
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin`, {
         method: 'POST',
         headers: {
