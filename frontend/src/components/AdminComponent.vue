@@ -268,17 +268,25 @@
 
   async function editProject() {
     const slug = slugInput.value.trim()
-    try {
+    const update = {...editableProject}
+
+    console.log("[DEBUG]: editable fields: ", update)
+    
+    try{
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
-        method: 'PUT',
-        headers: { 'Authorization': `Bearer ${token.value}` },
-        body: JSON.stringify(editableProject),
-      })
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token.value}`,
+        },
+        body: JSON.stringify(update),
+      });
       if (!res.ok) throw new Error('Failed to edit project')
       startAction('edit')
       alert('Project edited successfully')
-    } catch (error) {
-      console.error('Error editing project:', error)
+
+    }catch(err){
+      console.error('Error editing project:', err)
     }
   }
 

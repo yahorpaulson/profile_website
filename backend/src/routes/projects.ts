@@ -202,8 +202,10 @@ router.patch('/admin/:slug', verifyToken, async (req: Request, res: Response): P
         }
 
 
+
         const collection = getCollection();
         const result = await collection.updateOne({ slug }, { $set: project });
+
         if (result.matchedCount === 0) {
             res.status(404).json({ message: '[ERROR]: Project not found' });
             return;

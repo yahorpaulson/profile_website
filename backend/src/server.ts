@@ -10,7 +10,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-const PORT = parseInt(process.env.PORT || '3000', 10)
+const PORT = parseInt(process.env.PORT || '3000', 10) //10 is the radix
 const MONGO_URI = process.env.MONGO_URI
 const JWT_SECRET = process.env.JWT_SECRET
 
@@ -24,7 +24,7 @@ async function startServer() {
     try {
 
 
-        await client.connect()
+        const connection = await client.connect()
         const db = client.db('portfolio')
         console.log('[SUCCESS]: Connected to MongoDB')
 
