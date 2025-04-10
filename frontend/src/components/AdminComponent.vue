@@ -53,6 +53,15 @@
         <input v-model="addProject.shortDescription.be" />
       </div>
 
+      <div class="field-row">
+        <label>Goals (EN)</label>
+        <input v-model="addProject.goals.en" />
+        <label>Goals (DE)</label>
+        <input v-model="addProject.goals.de" />
+        <label>Goals (BE)</label>
+        <input v-model="addProject.goals.be" />
+      </div>
+
 
       <div class="field-row">
         <label>Insights (EN)</label>
@@ -175,7 +184,8 @@
     inProgress: false,
     language: 'en',
     description: { en: '', de: '', be: '' },
-    insights: { en: '', de: '', be: '' },
+    insights: { en: [], de: [], be: [] },
+    goals: { en: [], de: [], be: [] },
     link: '',
     slug: ''
   });
@@ -354,7 +364,8 @@
         inProgress: false,
         language: 'en',
         description: { en: '', de: '', be: '' },
-        insights: { en: '', de: '', be: '' },
+        insights: { en: [], de: [], be: [] },
+        goals: { en: [], de: [], be: [] },
         link: '',
         slug: ''
       })
