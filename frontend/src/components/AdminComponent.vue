@@ -346,7 +346,10 @@
     console.log('Sending token:', token.value)
 
     const slug = slugInput.value.trim();
+    
     const update = { ...editableProject };
+    delete update._id;
+    console.log('[DEBUG] Editable fields:', update);
 
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
       method: 'PATCH',

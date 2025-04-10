@@ -17,9 +17,6 @@ export function setCollections(db: Db, jwtSecret: string) {
 }
 
 
-
-
-
 type Lang = 'en' | 'de' | 'be';
 
 
@@ -83,12 +80,17 @@ export function validateProject(project: any): string[] {
 
 
 
+
 function verifyToken(req: Request, res: Response, next: () => void): void {
-    const token = req.cookies.token;
+    const authHeader = req.headers['authorization'];
+    const tokenFromHeader = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+    const token = tokenFromHeader || req.cookies.token;
+
     if (!token) {
         res.status(401).json({ message: '[ERROR]: No token provided' });
         return;
     }
+
     jwt.verify(token, secret, (err: any, decoded: any) => {
         if (err) {
             res.status(401).json({ message: '[ERROR]: Invalid token' });
@@ -99,6 +101,7 @@ function verifyToken(req: Request, res: Response, next: () => void): void {
     });
 }
 
+
 function getCollection(): Collection<Project> {
     if (!projectsCollection) {
         console.error('[ERROR]: projectsCollection is not initialized!');
@@ -106,12 +109,6 @@ function getCollection(): Collection<Project> {
     }
     return projectsCollection;
 }
-
-
-
-
-
-
 
 
 
@@ -182,40 +179,33 @@ router.post('/admin/login', async (req: Request, res: Response): Promise<void> =
 
 router.patch('/admin/:slug', verifyToken, async (req: Request, res: Response): Promise<void> => {
     try {
-
         const slug = req.params.slug;
         if (!slug) {
             res.status(400).json({ message: '[ERROR]: Slug is required' });
             return;
         }
-        const updates = req.body as Partial<Project>;
-        if (!updates) {
-            res.status(400).json({ message: '[ERROR]: Updates are required' });
+
+        const updates = req.body;
+        if (!updates || typeof updates !== 'object') {
+            res.status(400).json({ message: '[ERROR]: Invalid update payload' });
             return;
         }
-
-        const project = req.body as Project;
-        const errors = validateProject(project);
-        if (errors.length > 0) {
-            res.status(400).json({ message: '[ERROR]: Validation failed', errors });
-            return;
-        }
-
-
 
         const collection = getCollection();
-        const result = await collection.updateOne({ slug }, { $set: project });
+        const result = await collection.updateOne({ slug }, { $set: updates });
 
         if (result.matchedCount === 0) {
             res.status(404).json({ message: '[ERROR]: Project not found' });
             return;
         }
-        res.status(200).json({ message: '[SUCCESS]: Project updated' });
 
+        res.status(200).json({ message: '[SUCCESS]: Project updated' });
     } catch (err) {
+        console.error('[ERROR PATCH]:', err);
         res.status(500).json({ message: '[ERROR]: Error admin PATCH request' });
     }
-})
+});
+
 
 
 router.delete('/admin/:slug', verifyToken, async (req: Request, res: Response): Promise<void> => {
