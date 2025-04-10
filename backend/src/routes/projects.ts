@@ -180,6 +180,40 @@ router.post('/admin/login', async (req: Request, res: Response): Promise<void> =
 
 
 
+router.patch('/admin/:slug', verifyToken, async (req: Request, res: Response): Promise<void> => {
+    try {
+
+        const slug = req.params.slug;
+        if (!slug) {
+            res.status(400).json({ message: '[ERROR]: Slug is required' });
+            return;
+        }
+        const updates = req.body as Partial<Project>;
+        if (!updates) {
+            res.status(400).json({ message: '[ERROR]: Updates are required' });
+            return;
+        }
+
+        const project = req.body as Project;
+        const errors = validateProject(project);
+        if (errors.length > 0) {
+            res.status(400).json({ message: '[ERROR]: Validation failed', errors });
+            return;
+        }
+
+
+        const collection = getCollection();
+        const result = await collection.updateOne({ slug }, { $set: project });
+        if (result.matchedCount === 0) {
+            res.status(404).json({ message: '[ERROR]: Project not found' });
+            return;
+        }
+        res.status(200).json({ message: '[SUCCESS]: Project updated' });
+
+    } catch (err) {
+        res.status(500).json({ message: '[ERROR]: Error admin PATCH request' });
+    }
+})
 
 
 router.delete('/admin/:slug', verifyToken, async (req: Request, res: Response): Promise<void> => {
