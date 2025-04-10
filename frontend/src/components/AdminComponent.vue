@@ -54,6 +54,16 @@
       </div>
 
 
+      <div class="field-row">
+        <label>Insights (EN)</label>
+        <input v-model="addProject.insights.en" />
+        <label>Insights (DE)</label>
+        <input v-model="addProject.insights.de" />
+        <label>Insights (BE)</label>
+        <input v-model="addProject.insights.be" />
+      </div>
+
+
       <label for="tags">Tags (comma separated)</label>
       <input v-model="tagsInput" type="text" id="tags" placeholder="e.g. vue, vite, typescript" />
 
@@ -92,6 +102,7 @@
         <option value="description">Description</option>
         <option value="shortDescription">Short Description</option>
         <option value="link">Link</option>
+        <option value="insights">Insights</option>
         <option value="tags">Tags</option>
         <option value="inProgress">In Progress</option>
         <option value="slug">Slug</option>
@@ -125,7 +136,6 @@
   <div v-if="currentAction === 'delete' && projectFound" class="edit-context-menu">
     
     <h2>Deleting: {{ editableProject.slug }}</h2>
-    <input v-model="editableProject.link" type="text" id="link" disabled />
     <button class="save" @click="submitChange">Delete</button>
   </div>
   <!-- END DELETE FIELD -->
@@ -165,6 +175,7 @@
     inProgress: false,
     language: 'en',
     description: { en: '', de: '', be: '' },
+    insights: { en: '', de: '', be: '' },
     link: '',
     slug: ''
   });
@@ -193,8 +204,7 @@
       console.log('[DEBUG] Project fetched:', project);
       Object.assign(editableProject, JSON.parse(JSON.stringify(project)));
       projectFound.value = true;
-      //submitChange();
-      //console.log('submitChange called')
+      
     } catch {
       alert('Project not found');
     }
@@ -231,37 +241,7 @@
     }
   }
 
-  /**
-  async function createProject() {
-    try {
-      addProject.tags = tagsInput.value
-        .split(',')
-        .map(tag => tag.trim())
-        .filter(tag => tag !== '')
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token.value}`,
-        },
-        body: JSON.stringify(addProject),
-      });
-
-
-      if (!res.ok) {
-        const errMsg = await res.text();
-        throw new Error(`[ERROR]: ${errMsg}`);
-      }
-
-      startAction('add')
-      alert('Project added successfully');
-
-    } catch (error) {
-      console.error('[ERROR]: Error adding project', error);
-      
-    }
-  }
-  */
+  
 
   async function createProject() {
     addProject.tags = tagsInput.value.split(',').map(t => t.trim()).filter(Boolean);
@@ -286,24 +266,7 @@
 
 
 
-  /**
-  async function deleteProject() {
-    const slug = slugInput.value.trim()
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
-        method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token.value}` },
-      });
-      if (!res.ok) throw new Error('Failed to delete project')
-      startAction('delete')
-      console.log('startAction delete')
-      alert('Project deleted successfully')
-    } catch (error) {
-      console.error('Error deleting project:', error)
-      
-    }
-  }
-  */
+  
   async function deleteProject() {
     const slug = slugInput.value.trim();
 
@@ -323,38 +286,9 @@
     resetState();
   }
 
-
-
-
-  /**
-  async function editProject() {
-    const slug = slugInput.value.trim()
-    const update = {...editableProject}
-
-    console.log("[DEBUG]: editable fields: ", update)
-    
-    try{
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token.value}`,
-        },
-        body: JSON.stringify(update),
-      });
-      if (!res.ok) throw new Error('Failed to edit project')
-      startAction('edit')
-      console.log('startAction edit')
-      alert('Project edited successfully')
-
-    }catch(err){
-      console.error('Error editing project:', err)
-    }
-  }
-  */
     
   async function editProject() {
-    console.log('Sending token:', token.value)
+    
 
     const slug = slugInput.value.trim();
     
@@ -420,6 +354,7 @@
         inProgress: false,
         language: 'en',
         description: { en: '', de: '', be: '' },
+        insights: { en: '', de: '', be: '' },
         link: '',
         slug: ''
       })
@@ -456,13 +391,13 @@
 
     if (currentAction.value === 'delete') {
       deleteProject()
-      console.log('deleteProject called')
+      
     } else if (currentAction.value === 'edit') {
       editProject()
-      console.log('editProject called')
+      
     } else if (currentAction.value === 'add') {
       createProject()
-      console.log('createProject called')
+      
     }
   
     
