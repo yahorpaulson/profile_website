@@ -145,16 +145,17 @@
 
   const editableProject = reactive<any>({})
 
-  const addProject = reactive<any>({      //initialized cannot be null
+  const addProject = reactive<any>({
     title: { en: '', de: '', be: '' },
     shortDescription: { en: '', de: '', be: '' },
     tags: [],
     inProgress: false,
     language: 'en',
-    description: '',
+    description: { en: '', de: '', be: '' }, // ✅ объект!
     link: '',
     slug: ''
   });
+
 
   
   onMounted(() => {
@@ -235,7 +236,8 @@
         throw new Error(`[ERROR]: ${errMsg}`);
       }
 
-      startAction(null);
+      startAction('add')
+      alert('Project added successfully');
 
     } catch (error) {
       console.error('[ERROR]: Error adding project', error);
@@ -253,6 +255,7 @@
         headers: { 'Authorization': `Bearer ${token.value}` },
       })
       if (!res.ok) throw new Error('Failed to delete project')
+      startAction('delete')
       alert('Project deleted successfully')
     } catch (error) {
       console.error('Error deleting project:', error)
@@ -272,6 +275,7 @@
         body: JSON.stringify(editableProject),
       })
       if (!res.ok) throw new Error('Failed to edit project')
+      startAction('edit')
       alert('Project edited successfully')
     } catch (error) {
       console.error('Error editing project:', error)
@@ -287,6 +291,7 @@
 
   Object.keys(editableProject).forEach(key => delete editableProject[key])
   Object.keys(addProject).forEach(key => delete addProject[key])
+
 
   if (action === 'add') {
     showSlugInput.value = false
