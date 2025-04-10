@@ -10,9 +10,10 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-const PORT = parseInt(process.env.PORT || '3000', 10) //10 is the radix
+const PORT = parseInt(process.env.PORT || '3000', 10)
 const MONGO_URI = process.env.MONGO_URI
 const JWT_SECRET = process.env.JWT_SECRET
+//I want to keep them together without initialising them in different modules
 
 if (!MONGO_URI || !JWT_SECRET) {
     throw new Error('[FATAL]: Missing env variables')
@@ -25,10 +26,14 @@ async function startServer() {
 
 
         const connection = await client.connect()
+        if (!connection) {
+            throw new Error('[FATAL]: Failed to connect to MongoDB')
+
+        }
         const db = client.db('portfolio')
         console.log('[SUCCESS]: Connected to MongoDB')
 
-        setCollections(db, JWT_SECRET as string)
+        setCollections(db, JWT_SECRET as string) //JWT_SECRET is transfered to projects.ts
 
 
         app.use('/api/projects', projectRouter)

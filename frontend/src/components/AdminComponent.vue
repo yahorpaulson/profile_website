@@ -136,7 +136,7 @@
   const showSlugInput = ref(false)
   const slugInput = ref('')
   const tagsInput = ref('')
-  const inProgressInput = ref(false)
+  //const inProgressInput = ref(false)
   const projectFound = ref(false)
 
   const currentAction = ref<'edit' | 'delete' | 'add' | null>(null)
