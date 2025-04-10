@@ -292,7 +292,7 @@
       tags: '',
       inProgress: false,
       language: 'en',
-      description: '',
+      description: { en: '', de: '', be: '' },
       link: '',
       slug: ''
     })
