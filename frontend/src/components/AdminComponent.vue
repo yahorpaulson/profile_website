@@ -145,7 +145,7 @@
   const addProject = reactive<any>({      //initialized cannot be null
     title: { en: '', de: '', be: '' },
     shortDescription: { en: '', de: '', be: '' },
-    tags: '',
+    tags: [],
     inProgress: false,
     language: 'en',
     description: '',
@@ -289,7 +289,7 @@
     Object.assign(addProject, {
       title: { en: '', de: '', be: '' },
       shortDescription: { en: '', de: '', be: '' },
-      tags: '',
+      tags: [],
       inProgress: false,
       language: 'en',
       description: { en: '', de: '', be: '' },
