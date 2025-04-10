@@ -22,104 +22,105 @@
 
     
     <div v-if="showSlugInput" class="slug-search">
-      <input v-model="slugInput" placeholder="Enter project slug..." />
-      <button @click="handleSlugSubmit">{{ currentAction === 'delete' ? 'Delete' : 'Change' }}
-      </button>
+    <input v-model="slugInput" placeholder="Enter project slug..." />
+    <button @click="handleSlugSubmit">{{ currentAction === 'delete' ? 'Delete' : 'Change' }}
+    </button>
 
-    </div>
+  </div>
 
 
-    <!-- ADD FIELD -->
-    <div v-if="currentAction === 'add' && !projectFound" class="edit-context-menu">
-      <h2>Adding a new project</h2>
+  <!-- ADD FIELD -->
+  <div v-if="currentAction === 'add' && !projectFound" class="edit-context-menu">
+    <h2>Adding a new project</h2>
+    <div class="field-row">
+    <label for="slug">Slug</label>
+      <input v-model="addProject.slug" type="text" id="slug" />
       <div class="field-row">
-        <label for="slug">Slug</label>
-        <input v-model="addProject.slug" type="text" id="slug" />
-        <div class="field-row">
-          <label>Title (EN)</label>
-          <input v-model="addProject.title.en" />
-          <label>Title (DE)</label>
-          <input v-model="addProject.title.de" />
-          <label>Title (BE)</label>
-          <input v-model="addProject.title.be" />
-        </div>
-
-        <div class="field-row">
-          <label>Short Description (EN)</label>
-          <input v-model="addProject.shortDescription.en" />
-          <label>Short Description (DE)</label>
-          <input v-model="addProject.shortDescription.de" />
-          <label>Short Description (BE)</label>
-          <input v-model="addProject.shortDescription.be" />
-        </div>
-
-
-        <label for="tags">Tags (comma separated)</label>
-        <input v-model="tagsInput" type="text" id="tags" placeholder="e.g. vue, vite, typescript" />
-
-        <label for="inProgress">In Progress</label>
-        <input v-model="addProject.inProgress" type="checkbox" id="inProgress" placeholder="In Progress" />
-        
-        <div class="field-row">
-          <label>Description (EN)</label>
-          <input v-model="addProject.description.en" />
-          <label>Description (DE)</label>
-          <input v-model="addProject.description.de" />
-          <label>Description (BE)</label>
-          <input v-model="addProject.description.be" />
-        
-        </div>
-
-
-        <title>Link</title>
-        <input v-model="addProject.link" type="text" id="link" placeholder="Link" />
+        <label>Title (EN)</label>
+        <input v-model="addProject.title.en" />
+        <label>Title (DE)</label>
+        <input v-model="addProject.title.de" />
+        <label>Title (BE)</label>
+        <input v-model="addProject.title.be" />
       </div>
-      <button class="save" @click="submitChange"> Save</button>
+
+      <div class="field-row">
+        <label>Short Description (EN)</label>
+        <input v-model="addProject.shortDescription.en" />
+        <label>Short Description (DE)</label>
+        <input v-model="addProject.shortDescription.de" />
+        <label>Short Description (BE)</label>
+        <input v-model="addProject.shortDescription.be" />
+      </div>
+
+
+      <label for="tags">Tags (comma separated)</label>
+      <input v-model="tagsInput" type="text" id="tags" placeholder="e.g. vue, vite, typescript" />
+
+      <label for="inProgress">In Progress</label>
+      <input v-model="addProject.inProgress" type="checkbox" id="inProgress" placeholder="In Progress" />
+        
+      <div class="field-row">
+        <label>Description (EN)</label>
+        <input v-model="addProject.description.en" />
+        <label>Description (DE)</label>
+        <input v-model="addProject.description.de" />
+        <label>Description (BE)</label>
+        <input v-model="addProject.description.be" />
+        
+      </div>
+
+
+      <title>Link</title>
+      <input v-model="addProject.link" type="text" id="link" placeholder="Link" />
     </div>
-    <!-- END ADD FIELD -->
+    <button class="save" @click="submitChange"> Save</button>
+  </div>
+  <!-- END ADD FIELD -->
 
 
 
 
 
-      <!-- EDIT FIELD -->
+  <!-- EDIT FIELD -->
     
-      <div v-if="projectFound" class="edit-context-menu">
-        <h2>Editing: {{ editableProject.slug }}</h2>
+    <div v-if="currentAction === 'edit' && projectFound" class="edit-context-menu">
+      <h2>Editing: {{ editableProject.slug }}</h2>
       
-        <select v-model="editableProject.field">
-          <option value="title">Title</option>
-          <option value="description">Description</option>
-          <option value="shortDescription">Short Description</option>
-          <option value="link">Link</option>
-          <option value="tags">Tags</option>
-          <option value="inProgress">In Progress</option>
-          <option value="slug">Slug</option>
+      <select v-model="editableProject.field">
+        <option value="title">Title</option>
+        <option value="description">Description</option>
+        <option value="shortDescription">Short Description</option>
+        <option value="link">Link</option>
+        <option value="tags">Tags</option>
+        <option value="inProgress">In Progress</option>
+        <option value="slug">Slug</option>
+      </select>
+
+      <div v-if="['title', 'description', 'shortDescription'].includes(editableProject.field)">
+        <label for="language">Language:</label>
+        <select id="language" v-model="editableProject.language">
+          <option value="en">EN</option>
+          <option value="de">DE</option>
+          <option value="be">BE</option>
         </select>
-
-        <div v-if="['title', 'description', 'shortDescription'].includes(editableProject.field)">
-          <label for="language">Language:</label>
-          <select id="language" v-model="editableProject.language">
-            <option value="en">EN</option>
-            <option value="de">DE</option>
-            <option value="be">BE</option>
-          </select>
-        </div>
-
-
-        <div  v-if="editableProject.field && editableProject.language" class="field-row">
-          <label :for="editableProject.field">{{ editableProject.field }}</label>
-          <input
-            v-model="editableProject[editableProject.field][editableProject.language]"
-            :type="editableProject.field === 'inProgress' ? 'checkbox' : 'text'"
-            :id="editableProject.field"
-          />
-        </div>
-
-        <button class="save" @click="submitChange">Save</button>
       </div>
+
+
+      <div  v-if="editableProject.field && editableProject.language" class="field-row">
+        <label :for="editableProject.field">{{ editableProject.field }}</label>
+        <input
+          v-model="editableProject[editableProject.field][editableProject.language]"
+          :type="editableProject.field === 'inProgress' ? 'checkbox' : 'text'"
+          :id="editableProject.field"
+        />
+      </div>
+
+      <button class="save" @click="submitChange">Save</button>
     </div>
-    <!-- END EDIT FIELD -->
+  </div>
+  <!-- END EDIT FIELD -->
+
 </template>
 
 <script setup lang="ts">
@@ -294,23 +295,23 @@
   }
   */
   async function deleteProject() {
-  const slug = slugInput.value.trim();
+    const slug = slugInput.value.trim();
 
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
-    method: 'DELETE',
-    headers: {
-      'Authorization': `Bearer ${token.value}`
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token.value}`
+      }
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`[DELETE ERROR]: ${err}`);
     }
-  });
 
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`[DELETE ERROR]: ${err}`);
+    alert('Project deleted');
+    resetState();
   }
-
-  alert('Project deleted');
-  resetState();
-}
 
 
 
