@@ -75,6 +75,8 @@
         <input v-model="addProject.link" type="text" id="link" placeholder="Link" />
       </div>
       <button class="save" @click="submitChange"> Save</button>
+    </div>
+    <!-- END ADD FIELD -->
 
 
 
@@ -117,7 +119,7 @@
         <button class="save" @click="submitChange">Save</button>
       </div>
     </div>
-  </div>
+    <!-- END EDIT FIELD -->
 </template>
 
 <script setup lang="ts">
@@ -172,12 +174,16 @@
 
   async function handleSlugSubmit() {
     const slug = slugInput.value.trim();
+    console.log('[DEBUG] handleSlugSubmit called with slug:', slug);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`);
       if (!res.ok) throw new Error('Not found');
       const project = await res.json();
+      console.log('[DEBUG] Project fetched:', project);
       Object.assign(editableProject, JSON.parse(JSON.stringify(project)));
       projectFound.value = true;
+      //submitChange();
+      //console.log('submitChange called')
     } catch {
       alert('Project not found');
     }
@@ -214,7 +220,7 @@
     }
   }
 
-
+  /**
   async function createProject() {
     try {
       addProject.tags = tagsInput.value
@@ -244,9 +250,32 @@
       
     }
   }
+  */
+
+  async function createProject() {
+    addProject.tags = tagsInput.value.split(',').map(t => t.trim()).filter(Boolean);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token.value}`
+      },
+      body: JSON.stringify(addProject)
+     });
+
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`[ADD ERROR]: ${err}`);
+    }
+
+    alert('Project created');
+    resetState();
+  }
 
 
 
+
+  /**
   async function deleteProject() {
     const slug = slugInput.value.trim()
     try {
@@ -256,16 +285,37 @@
       });
       if (!res.ok) throw new Error('Failed to delete project')
       startAction('delete')
+      console.log('startAction delete')
       alert('Project deleted successfully')
     } catch (error) {
       console.error('Error deleting project:', error)
       
     }
   }
+  */
+  async function deleteProject() {
+  const slug = slugInput.value.trim();
+
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token.value}`
+    }
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`[DELETE ERROR]: ${err}`);
+  }
+
+  alert('Project deleted');
+  resetState();
+}
 
 
 
 
+  /**
   async function editProject() {
     const slug = slugInput.value.trim()
     const update = {...editableProject}
@@ -283,45 +333,94 @@
       });
       if (!res.ok) throw new Error('Failed to edit project')
       startAction('edit')
+      console.log('startAction edit')
       alert('Project edited successfully')
 
     }catch(err){
       console.error('Error editing project:', err)
     }
   }
+  */
+    
+  async function editProject() {
+    const slug = slugInput.value.trim();
+    const update = { ...editableProject };
+
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token.value}`
+      },
+      body: JSON.stringify(update)
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`[EDIT ERROR]: ${err}`);
+    }
+
+    
+
+    alert('Project updated');
+    resetState();
+  }
+
+
+
+  function resetState() {
+    slugInput.value = ''
+    tagsInput.value = ''
+    projectFound.value = false
+    showSlugInput.value = false
+    currentAction.value = null
+    Object.keys(editableProject).forEach(key => delete editableProject[key])
+    Object.keys(addProject).forEach(key => delete addProject[key])
+  }
+
 
 
   function startAction(action: 'edit' | 'delete' | 'add' | null) {
-  currentAction.value = action
-  showSlugInput.value = action !== 'add'
-  slugInput.value = ''
-  projectFound.value = false
 
-  Object.keys(editableProject).forEach(key => delete editableProject[key])
-  Object.keys(addProject).forEach(key => delete addProject[key])
-
-
-  if (action === 'add') {
-    showSlugInput.value = false
+    console.log('[DEBUG] startAction called with:', action);
+    currentAction.value = action
+    showSlugInput.value = action !== 'add'
+    slugInput.value = ''
     projectFound.value = false
 
-    
-    Object.assign(addProject, {
-      title: { en: '', de: '', be: '' },
-      shortDescription: { en: '', de: '', be: '' },
-      tags: [],
-      inProgress: false,
-      language: 'en',
-      description: { en: '', de: '', be: '' },
-      link: '',
-      slug: ''
-    })
+    Object.keys(editableProject).forEach(key => delete editableProject[key])
+    Object.keys(addProject).forEach(key => delete addProject[key])
 
-    Object.assign(editableProject, {
-      slug: ''
-    })
+
+    if (action === 'add') {
+      showSlugInput.value = false
+      projectFound.value = false
+
+    
+      Object.assign(addProject, {
+        title: { en: '', de: '', be: '' },
+        shortDescription: { en: '', de: '', be: '' },
+        tags: [],
+        inProgress: false,
+        language: 'en',
+        description: { en: '', de: '', be: '' },
+        link: '',
+        slug: ''
+      })
+
+      Object.assign(editableProject, {
+        slug: ''
+      })
+    }
+
+    if (action === 'edit' || action === 'delete') {
+      Object.assign(editableProject, {
+        slug: '',
+        field: 'title', 
+        language: 'en'         
+      });
+    }
   }
-}
 
   
 
@@ -330,10 +429,13 @@
 
     if (currentAction.value === 'delete') {
       deleteProject()
+      console.log('deleteProject called')
     } else if (currentAction.value === 'edit') {
       editProject()
+      console.log('editProject called')
     } else if (currentAction.value === 'add') {
       createProject()
+      console.log('createProject called')
     }
   
     
@@ -341,52 +443,52 @@
 </script>
 
 <style scoped>
-.edit-context-menu {
-  margin-top: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 2rem;
-  background: #f9f9f9;
-  max-width: 800px;
-  font-family: 'Courier New', monospace;
-}
+  .edit-context-menu {
+    margin-top: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 2rem;
+    background: #f9f9f9;
+    max-width: 800px;
+    font-family: 'Courier New', monospace;
+  }
 
-.field-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
+  .field-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
 
-.field-row label {
-  min-width: 140px;
-  font-weight: bold;
-  margin-bottom: 0.3rem;
-}
+  .field-row label {
+    min-width: 140px;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
 
-.field-row input[type='text'],
-.field-row input[type='checkbox'],
-.field-row select {
-  flex: 1 1 200px;
-  padding: 6px;
-  font-family: inherit;
-}
+  .field-row input[type='text'],
+  .field-row input[type='checkbox'],
+  .field-row select {
+    flex: 1 1 200px;
+    padding: 6px;
+    font-family: inherit;
+  }
 
-button.save {
-  margin-top: 2rem;
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: 1px solid #aaa;
-  background-color: #fff;
-  cursor: pointer;
-}
+  button.save {
+    margin-top: 2rem;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    background-color: #fff;
+    cursor: pointer;
+  }
 
-button.save:hover {
-  background-color: #f0f0f0;
-}
+  button.save:hover {
+    background-color: #f0f0f0;
+  }
 
-.logout {
-  margin-bottom: 1rem;
-}
+  .logout {
+    margin-bottom: 1rem;
+  }
 
 </style>
