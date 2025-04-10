@@ -1,52 +1,28 @@
 import { Router, Request, Response } from 'express';
-import * as dotenv from 'dotenv';
+import { Collection, Db } from 'mongodb';
 import jwt from 'jsonwebtoken';
-
 import bcrypt from 'bcryptjs';
-
-dotenv.config();
-
-import { Collection, MongoClient } from 'mongodb';
-
-
 import { Project } from 'src/shared/modules/project';
-
 
 const router = Router();
 
-const uri = process.env.MONGO_URI!;
-const secret = process.env.JWT_SECRET!;
-
-
-
-
-
-
-
-if (!uri) {
-    throw new Error('[ERROR]: Password not set or wrong');
-}
-
-const client = new MongoClient(uri);
-const dbName = 'portfolio';
-
 let projectsCollection: Collection<Project>;
 let adminCollection: Collection<{ name: string; password: string }>;
+let secret: string;
+
+export function setCollections(db: Db, jwtSecret: string) {
+    projectsCollection = db.collection<Project>('projects');
+    adminCollection = db.collection('admins');
+    secret = jwtSecret;
+}
+
 
 
 
 
 type Lang = 'en' | 'de' | 'be';
 
-client.connect().then(() => {
-    const db = client.db(dbName);
-    projectsCollection = db.collection<Project>('projects');
-    adminCollection = db.collection<{ name: string; password: string }>('admins');
-    console.log('[SUCCESS]: Connected to MongoDB');
 
-}).catch(err => {
-    console.error('[ERROR]: Failed to connect to MongoDB', err);
-})
 
 
 export function validateProject(project: any): string[] {
@@ -125,10 +101,12 @@ function verifyToken(req: Request, res: Response, next: () => void): void {
 
 function getCollection(): Collection<Project> {
     if (!projectsCollection) {
+        console.error('[ERROR]: projectsCollection is not initialized!');
         throw new Error('[ERROR]: DB not initialized yet');
     }
     return projectsCollection;
 }
+
 
 
 
