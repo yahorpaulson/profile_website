@@ -121,6 +121,16 @@
   </div>
   <!-- END EDIT FIELD -->
 
+  <!-- DELETE FIELD -->
+  <div v-if="currentAction === 'delete' && projectFound" class="edit-context-menu">
+    
+    <h2>Deleting: {{ editableProject.slug }}</h2>
+    <input v-model="editableProject.link" type="text" id="link" disabled />
+    <button class="save" @click="submitChange">Delete</button>
+  </div>
+  <!-- END DELETE FIELD -->
+
+
 </template>
 
 <script setup lang="ts">
@@ -419,13 +429,24 @@
       })
     }
 
-    if (action === 'edit' || action === 'delete') {
+    if (action === 'edit') {
       Object.assign(editableProject, {
         slug: '',
-        field: 'title', 
-        language: 'en'         
+        field: 'title',
+        language: 'en'
       });
+      showSlugInput.value = true;
+      projectFound.value = false;
     }
+
+    if (action === 'delete') {
+      Object.assign(editableProject, {
+        slug: ''
+      });
+      showSlugInput.value = true;
+      projectFound.value = false;
+    }
+
   }
 
   
