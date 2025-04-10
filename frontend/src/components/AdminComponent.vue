@@ -343,6 +343,8 @@
   */
     
   async function editProject() {
+    console.log('Sending token:', token.value)
+
     const slug = slugInput.value.trim();
     const update = { ...editableProject };
 
