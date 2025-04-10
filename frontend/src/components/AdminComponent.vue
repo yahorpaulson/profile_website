@@ -151,7 +151,7 @@
     tags: [],
     inProgress: false,
     language: 'en',
-    description: { en: '', de: '', be: '' }, // ✅ объект!
+    description: { en: '', de: '', be: '' },
     link: '',
     slug: ''
   });
@@ -250,10 +250,10 @@
   async function deleteProject() {
     const slug = slugInput.value.trim()
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token.value}` },
-      })
+      });
       if (!res.ok) throw new Error('Failed to delete project')
       startAction('delete')
       alert('Project deleted successfully')
@@ -269,7 +269,7 @@
   async function editProject() {
     const slug = slugInput.value.trim()
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token.value}` },
         body: JSON.stringify(editableProject),
