@@ -3,6 +3,7 @@
     import AboutSection from './HomePageComponents/AboutSection.vue';
     import ContactsSection from './HomePageComponents/ContactsSection.vue';
     import ProjectsSection from './HomePageComponents/ProjectsSection.vue';
+    import FeedbackSection from './HomePageComponents/FeedbackSection.vue';
     import SVSection from './HomePageComponents/SVSection.vue';
     import ParticleBackground from '../components/BackgroundCanvas.vue'
     import LanguageSwitcher from './LanguageSwitcher.vue';
@@ -19,6 +20,7 @@
     <div class="about"><AboutSection /></div>
     <div class="projects"><ProjectsSection /></div>
     <div class="sv"><SVSection/></div>
+    <div class="feedback"><FeedbackSection /></div>
     <div class="contacts"><ContactsSection /></div>
     
     

@@ -1,3 +1,5 @@
+import { send } from "vite";
+
 export default {
     about: {
         title: "About me",
@@ -18,7 +20,9 @@ export default {
         home: {
             about: "About me:",
             project: "My projects:",
-            feedback: "Please leave your feedback:",
+            feedback: "I value your feedback! Please let me know your thoughts: ",
+            send: "Send",
+            thanks: "Thank you for your feedback!",
             contacts: "Contact me:",
         },
         project: {

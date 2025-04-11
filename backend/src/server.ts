@@ -2,8 +2,9 @@
 import express, { Request, Response } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import { MongoClient } from 'mongodb'
+import { MongoClient, Db } from 'mongodb'
 import projectRouter, { setCollections } from './routes/projects'
+import { Collection } from 'mongodb'
 
 dotenv.config()
 
@@ -22,6 +23,17 @@ if (!MONGO_URI || !JWT_SECRET) {
 
 const client = new MongoClient(MONGO_URI)
 
+let feedbackCollection: Collection<{ message: string; mark: number; time: Date }>;
+
+
+type FeedbackBody = {
+    message: string;
+    mark: number;
+    time?: string;
+};
+
+
+
 async function startServer() {
     try {
 
@@ -35,6 +47,9 @@ async function startServer() {
         console.log('[SUCCESS]: Connected to MongoDB')
 
         setCollections(db, JWT_SECRET as string) //JWT_SECRET is transfered to projects.ts
+
+
+        feedbackCollection = db.collection('feedback');
 
 
         app.use('/api/projects', projectRouter)
@@ -52,12 +67,20 @@ async function startServer() {
             }
 
             try {
-                const feedbackCollection = db.collection('feedback')
-                const result = await feedbackCollection.insertOne({ message, mark, time })
-                res.status(200).json({ message: '[SUCCESS]: Feedback sent', result })
+                const parsedTime = time ? new Date(time) : new Date();
+                if (isNaN(parsedTime.getTime())) {
+                    res.status(400).json({ message: '[ERROR]: Invalid time format' });
+                    return;
+                }
+
+
+
+
+                const result = await feedbackCollection.insertOne({ message, mark, time: parsedTime });
+                res.status(200).json({ message: '[SUCCESS]: Feedback sent', result });
             } catch (err) {
-                console.error('[ERROR]: Failed to send feedback', err)
-                res.status(500).json({ message: '[ERROR]: Failed to send feedback' })
+                console.error('[ERROR]: Failed to send feedback', err);
+                res.status(500).json({ message: '[ERROR]: Failed to send feedback' });
             }
 
         })
