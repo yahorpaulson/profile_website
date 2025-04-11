@@ -34,9 +34,17 @@
         
         const x = width/2
 
+
+        let hasScrolled = false
+        let animationStarted = false
+        let animationFrameId: number
+
         
 
         function drawArrow() {
+            if (hasScrolled) return
+            animationStarted = true
+
             if (!ctx || !canvas) return
 
             ctx.clearRect(0, 0, width, height)
@@ -63,12 +71,25 @@
             
             ctx.closePath()
 
-            y -= 5
-            if (y < 0) y = 400
+            y -= 4
+            if (y < 0) y = 500
 
-            requestAnimationFrame(drawArrow)
+            animationFrameId = requestAnimationFrame(drawArrow)
         }
-        drawArrow();
+
+        setTimeout(() => {
+            drawArrow()
+        }, 5000)
+
+        window.addEventListener('scroll', () =>{
+            hasScrolled = true
+            if(animationStarted){
+                cancelAnimationFrame(animationFrameId)
+                canvas.style.opacity = '0'
+            }
+            
+        })
+        
 
 
 
@@ -97,7 +118,13 @@
   pointer-events: none;
   opacity: 0.5;
   top: 20%;
+ 
+  }
+
+.arrow-canvas {
+  transition: opacity 0.2s ease;
 }
+
 
 @keyframes slideInFromLeft {
     from {
