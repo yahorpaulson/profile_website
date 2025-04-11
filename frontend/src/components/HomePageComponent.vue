@@ -39,6 +39,8 @@
     .about{
         margin-bottom: 20%;
     }
+
+    
     
     
     .footer {
