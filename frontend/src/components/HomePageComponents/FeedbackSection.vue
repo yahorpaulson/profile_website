@@ -64,11 +64,15 @@
                 })
             })
 
+            let data = null
+            try {
+                data = await res.json()
+            } catch (err) {
+                console.warn('[WARN]: No JSON in response')
+            }
 
-            const data = await res.json()
-
-            console.log(data);
-
+            console.log('[DEBUG]: Response:', data)
+            
             if (res.ok) {
                 alert('✅ Feedback sent!')
                 feedbackText.value = ''
