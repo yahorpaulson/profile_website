@@ -27,7 +27,7 @@
         <div class="feedback-text">
             
             <input type="text" placeholder="Your feedback" class="feedback-input" />
-            <button class="feedback-button">{{ t.titles.home.send }}</button>
+            <button class="feedback-button" @click="sendFeedback">{{ t.titles.home.send }}</button>
         </div>
     </div>
         
@@ -42,6 +42,43 @@
 
     const selectedMark = ref(0)
     const hoverMark = ref<number | null>(null)
+
+    const feedbackText = ref('')
+
+    async function sendFeedback() {
+        if (selectedMark.value === 0) {
+            alert('Please rate before sending!')
+            return
+        }
+
+        try {
+            const res = await fetch('/api/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: feedbackText.value,
+                    mark: selectedMark.value,
+                    time: new Date().toISOString()
+                })
+            })
+
+            const data = await res.json()
+
+            if (res.ok) {
+                alert('✅ Feedback sent!')
+                feedbackText.value = ''
+                selectedMark.value = 0
+            } else {
+                alert('❌ Error: ' + data.message)
+            }
+        } catch (err) {
+            console.error(err)
+            alert('❌ Network error')
+        }
+    }
+
 
 
 </script>

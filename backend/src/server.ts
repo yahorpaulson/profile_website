@@ -23,14 +23,10 @@ if (!MONGO_URI || !JWT_SECRET) {
 
 const client = new MongoClient(MONGO_URI)
 
-let feedbackCollection: Collection<{ message: string; mark: number; time: Date }>;
+let feedbackCollection: Collection<{ message: string; mark: number; time: Date; date?: Date }>;
 
 
-type FeedbackBody = {
-    message: string;
-    mark: number;
-    time?: string;
-};
+
 
 
 
@@ -74,9 +70,12 @@ async function startServer() {
                 }
 
 
-
-
-                const result = await feedbackCollection.insertOne({ message, mark, time: parsedTime });
+                const result = await feedbackCollection.insertOne({
+                    message,
+                    mark,
+                    time: time ? new Date(time) : new Date(),
+                    date: new Date(),
+                })
                 res.status(200).json({ message: '[SUCCESS]: Feedback sent', result });
             } catch (err) {
                 console.error('[ERROR]: Failed to send feedback', err);
