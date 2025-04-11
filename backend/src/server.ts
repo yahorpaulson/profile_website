@@ -1,4 +1,5 @@
-import express from 'express'
+
+import express, { Request, Response } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import { MongoClient } from 'mongodb'
@@ -37,6 +38,31 @@ async function startServer() {
 
 
         app.use('/api/projects', projectRouter)
+
+        app.post('/api/feedback', async (req: Request, res: Response) => {
+            const { message, mark, time } = req.body
+            if (!message && !mark) {
+                res.status(400).json({ message: '[ERROR]: No message or mark provided' })
+                return
+            }
+
+            if (typeof message !== 'string' || typeof mark !== 'number') {
+                res.status(400).json({ message: '[ERROR]: Invalid message or mark type' })
+                return
+            }
+
+            try {
+                const feedbackCollection = db.collection('feedback')
+                const result = await feedbackCollection.insertOne({ message, mark, time })
+                res.status(200).json({ message: '[SUCCESS]: Feedback sent', result })
+            } catch (err) {
+                console.error('[ERROR]: Failed to send feedback', err)
+                res.status(500).json({ message: '[ERROR]: Failed to send feedback' })
+            }
+
+        })
+
+
 
         app.listen(PORT, '0.0.0.0', () =>
             console.log(`[READY]: Server running on http://localhost:${PORT}`)
