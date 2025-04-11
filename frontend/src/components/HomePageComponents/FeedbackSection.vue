@@ -60,7 +60,7 @@
                 body: JSON.stringify({
                     message: feedbackText.value,
                     mark: selectedMark.value,
-                    time: new Date().toISOString()
+                    time: new Date()
                 })
             })
 
