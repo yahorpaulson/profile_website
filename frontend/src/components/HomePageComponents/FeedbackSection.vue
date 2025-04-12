@@ -33,6 +33,9 @@
                 v-model="feedbackText"
             />
             <button class="feedback-button" @click="sendFeedback">{{ t.titles.home.send }}</button>
+
+            <p v-if="showThanks" class="thanks-message">{{ t.titles.home.thanks }}</p>
+
         </div>
     </div>
         
@@ -50,6 +53,9 @@
 
     const feedbackText = ref('')
 
+
+    const showThanks = ref(false)
+
     async function sendFeedback() {
         if (selectedMark.value === 0) {
             alert('Please rate before sending!')
@@ -59,8 +65,6 @@
 
 
         try {
-            
-
 
             const res = await fetch(`${import.meta.env.VITE_API_URL}/api/feedback`, {
                 method: 'POST',
@@ -80,7 +84,11 @@
             console.log('[DEBUG]: Response:', data)
 
             if (res.ok) {
-                //TODO: add success message
+                showThanks.value = true
+
+                setTimeout(() => {
+                    showThanks.value = false
+                }, 5000) 
                 feedbackText.value = ''
                 selectedMark.value = 0
             } else {
@@ -97,6 +105,17 @@
 </script>
 
 <style lang="css" scoped>
+
+    @keyframes appear {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
     .feedback-title {
         text-align: center;
@@ -186,5 +205,13 @@
         fill: lime;
         stroke: white;
         filter: drop-shadow(0 0 6px lime);
+    }
+    .thanks-message {
+        color: white;
+        font-size: 1.2rem;
+        text-shadow: 0 0 8px lime;
+        margin-top: 20px;
+        transition: 0.5 ease-in-out;
+        animation: appear 0.5s ease-in-out;
     }
 </style>

@@ -220,7 +220,7 @@
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/feedback`)
       const data = await res.json()
-      feedbackList.value = data.reverse() // апошнія першыя
+      feedbackList.value = data.reverse() 
     } catch (err) {
       console.error('[ERROR]: Failed to load feedbacks', err)
     }
@@ -435,6 +435,7 @@
       
       console.log('Reading feedbacks...');
       fetchFeedbacks()
+      showSlugInput.value = false
       
     }
 
