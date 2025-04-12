@@ -75,12 +75,8 @@
                 })
             })
 
-            let data = null
-            try {
-                data = await res.json()
-            } catch (err) {
-                console.warn('[WARN]: No JSON in response')
-            }
+            let data = await res.json()
+            
 
             console.log('[DEBUG]: Response:', data)
 

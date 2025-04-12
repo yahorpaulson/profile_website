@@ -23,7 +23,7 @@ if (!MONGO_URI || !JWT_SECRET) {
 
 const client = new MongoClient(MONGO_URI)
 
-let feedbackCollection: Collection<{ message: string; mark: number; time: Date; date?: Date }>;
+let feedbackCollection: Collection<{ message: string; mark: number; time: Date }>;
 
 
 
@@ -61,7 +61,7 @@ async function startServer() {
                 const result = await feedbackCollection.insertOne({
                     message,
                     mark,
-                    time: time ? new Date(time) : new Date()
+                    time: time ? time : new Date()
                 })
                 res.status(200).json({ message: '[SUCCESS]: Feedback sent', result });
             } catch (err) {
