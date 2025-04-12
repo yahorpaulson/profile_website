@@ -63,7 +63,7 @@
 
             
 
-            const res = await fetch('/api/feedback', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/feedback`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
