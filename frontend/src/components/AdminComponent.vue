@@ -17,6 +17,7 @@
       <button class="change" @click="startAction('edit')">Change project</button>
       <button class="add" @click="startAction('add')">Add project</button>
       <button class="delete" @click="startAction('delete')">Delete project</button>
+      <button class="feedback" @click="startAction('read')">Read feedbacks</button>
     </div>
 
 
@@ -136,6 +137,8 @@
         />
       </div>
 
+      
+
       <button class="save" @click="submitChange">Save</button>
     </div>
   </div>
@@ -148,6 +151,19 @@
     <button class="save" @click="submitChange">Delete</button>
   </div>
   <!-- END DELETE FIELD -->
+
+
+  <!-- FEEDBACK FIELD -->
+  <div v-if="currentAction === 'read'" class="edit-context-menu">
+    <h2>Feedbacks</h2>
+    <ul v-if="feedbackList.length">
+      <li v-for="(f, i) in feedbackList" :key="i">
+        ⭐ {{ f.mark }} — "{{ f.message || 'No message' }}"<br />
+        <small>{{ new Date(f.time).toLocaleString() }}</small>
+      </li>
+    </ul>
+    <p v-else> No feedbacks yet.</p>
+  </div>
 
 
 </template>
@@ -171,7 +187,7 @@
   //const inProgressInput = ref(false)
   const projectFound = ref(false)
 
-  const currentAction = ref<'edit' | 'delete' | 'add' | null>(null)
+  const currentAction = ref<'edit' | 'delete' | 'add' |'read' |null>(null)
 
   
 
@@ -196,6 +212,19 @@
     token.value = localStorage.getItem('adminToken')
     isLoggedIn.value = !!token.value
   })
+
+
+  const feedbackList = ref<any[]>([])
+
+  async function fetchFeedbacks() {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/feedback`)
+      const data = await res.json()
+      feedbackList.value = data.reverse() // апошнія першыя
+    } catch (err) {
+      console.error('[ERROR]: Failed to load feedbacks', err)
+    }
+  }
 
 
   function logout() {
@@ -296,6 +325,15 @@
     resetState();
   }
 
+
+  async function fetchProjects(slug: string) {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`);
+    if (!res.ok) throw new Error('Not found');
+    const project = await res.json();
+    console.log('[DEBUG] Project fetched:', project);
+    
+  }
+
     
   async function editProject() {
     
@@ -340,7 +378,7 @@
 
 
 
-  function startAction(action: 'edit' | 'delete' | 'add' | null) {
+  function startAction(action: 'edit' | 'delete' | 'add' |'read' |null) {
 
     console.log('[DEBUG] startAction called with:', action);
     currentAction.value = action
@@ -391,6 +429,13 @@
       });
       showSlugInput.value = true;
       projectFound.value = false;
+    }
+
+    if (action === 'read') {
+      
+      console.log('Reading feedbacks...');
+      fetchFeedbacks()
+      
     }
 
   }
