@@ -59,9 +59,8 @@
 
 
         try {
-            const time = new Date();
-
             
+
 
             const res = await fetch(`${import.meta.env.VITE_API_URL}/api/feedback`, {
                 method: 'POST',
@@ -71,7 +70,7 @@
                 body: JSON.stringify({
                     message: feedbackText.value,
                     mark: selectedMark.value,
-                    time: time
+                    time: new Date()
                 })
             })
 
@@ -81,15 +80,15 @@
             console.log('[DEBUG]: Response:', data)
 
             if (res.ok) {
-                alert('✅ Feedback sent!')
+                //TODO: add success message
                 feedbackText.value = ''
                 selectedMark.value = 0
             } else {
-                alert('❌ Error: ' + data.message)
+                alert(' Error: ' + data.message)
             }
         } catch (err) {
             console.error(err)
-            alert('❌ Network error')
+            alert(' Network error')
         }
     }
 

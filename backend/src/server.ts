@@ -26,10 +26,6 @@ const client = new MongoClient(MONGO_URI)
 let feedbackCollection: Collection<{ message: string; mark: number; time: Date }>;
 
 
-
-
-
-
 async function startServer() {
     try {
 
@@ -50,11 +46,41 @@ async function startServer() {
 
         app.use('/api/projects', projectRouter)
 
+        app.get('/api/feedback', async (req: Request, res: Response) => {
+            try {
+                const feedback = await feedbackCollection.find().toArray()
+                res.status(200).json(feedback)
+            } catch (err) {
+                console.error('[ERROR]: Failed to fetch feedback', err)
+                res.status(500).json({ message: '[ERROR]: Failed to fetch feedback' })
+            }
+        })
+
         app.post('/api/feedback', async (req: Request, res: Response) => {
             const { message, mark, time } = req.body
 
 
             try {
+                if (!message || !mark) {
+                    res.status(400).json({ message: '[ERROR]: Missing required fields' })
+                    return
+                }
+                if (typeof message !== 'string' || typeof mark !== 'number') {
+                    res.status(400).json({ message: '[ERROR]: Invalid data types' })
+                    return
+                }
+                if (message.length > 500) {
+                    res.status(400).json({ message: '[ERROR]: Message is too long' })
+                    return
+                }
+                if (mark < 1 || mark > 5) {
+                    res.status(400).json({ message: '[ERROR]: Mark must be between 1 and 5' })
+                    return
+                }
+                if (time && isNaN(Date.parse(time))) {
+                    res.status(400).json({ message: '[ERROR]: Invalid date format' })
+                    return
+                }
 
                 console.log('Feedback received:', { message, mark, time })
 
