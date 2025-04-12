@@ -52,29 +52,16 @@ async function startServer() {
 
         app.post('/api/feedback', async (req: Request, res: Response) => {
             const { message, mark, time } = req.body
-            if (!message && !mark) {
-                res.status(400).json({ message: '[ERROR]: No message or mark provided' })
-                return
-            }
 
-            if (typeof message !== 'string' || typeof mark !== 'number') {
-                res.status(400).json({ message: '[ERROR]: Invalid message or mark type' })
-                return
-            }
 
             try {
-                const parsedTime = time ? new Date(time) : new Date();
-                if (isNaN(parsedTime.getTime())) {
-                    res.status(400).json({ message: '[ERROR]: Invalid time format' });
-                    return;
-                }
 
+                console.log('Feedback received:', { message, mark, time })
 
                 const result = await feedbackCollection.insertOne({
                     message,
                     mark,
-                    time: time ? new Date(time) : new Date(),
-                    date: new Date(),
+                    time: time ? new Date(time) : new Date()
                 })
                 res.status(200).json({ message: '[SUCCESS]: Feedback sent', result });
             } catch (err) {

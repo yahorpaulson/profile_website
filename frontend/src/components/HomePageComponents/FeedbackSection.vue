@@ -26,7 +26,12 @@
 
         <div class="feedback-text">
             
-            <input type="text" placeholder="Your feedback" class="feedback-input" />
+            <input
+                type="text"
+                placeholder="Your feedback"
+                class="feedback-input"
+                v-model="feedbackText"
+            />
             <button class="feedback-button" @click="sendFeedback">{{ t.titles.home.send }}</button>
         </div>
     </div>
@@ -51,7 +56,13 @@
             return
         }
 
+
+
         try {
+            const time = new Date();
+
+            
+
             const res = await fetch('/api/feedback', {
                 method: 'POST',
                 headers: {
@@ -60,7 +71,7 @@
                 body: JSON.stringify({
                     message: feedbackText.value,
                     mark: selectedMark.value,
-                    time: new Date()
+                    time: time
                 })
             })
 
@@ -72,7 +83,7 @@
             }
 
             console.log('[DEBUG]: Response:', data)
-            
+
             if (res.ok) {
                 alert('✅ Feedback sent!')
                 feedbackText.value = ''
