@@ -2,7 +2,7 @@
 
     <div class="link">
         <button class="download">
-            <a href="/YPSV.pdf" download="Yahor Paulson (Siarheyeu_SV)">
+            <a href="/Yahor-Siarheyeu.pdf" download="Yahor Paulson (Siarheyeu_SV)">
                 {{ displayText }}
             </a>
         </button>
