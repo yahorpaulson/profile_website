@@ -108,4 +108,31 @@ async function startServer() {
     }
 }
 
+
+
+async function keepAlive(db: Db) {
+    try {
+        await db.command({ ping: 1 })
+        console.log('[SUCCESS]: MongoDB connection is alive')
+    }
+    catch (err) {
+        console.error('[ERROR]: MongoDB connection is not alive', err)
+        try {
+            await client.connect()
+            console.log('[SUCCESS]: Reconnected to MongoDB')
+        } catch (err) {
+            console.error('[FATAL]: Failed to reconnect to MongoDB', err)
+            process.exit(1)
+        }
+    }
+}
+setInterval(() => {
+    keepAlive(client.db('portfolio'))
+}, 1000 * 60 * 60 * 8) //1000ms * 60s * 60 min * 8h
+// Keep the connection alive every 8 hours
+
+
+
 startServer()
+
+keepAlive(client.db('portfolio'))
