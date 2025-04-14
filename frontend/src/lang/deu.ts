@@ -16,6 +16,7 @@ export default {
         email: "yahorforall@gmail.com"
     },
     titles: {
+        switchLang: "Sprache",
         home: {
             about: "Über mich:",
             project: "Meine Projekte:",

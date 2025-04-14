@@ -14,6 +14,7 @@ export default {
     },
 
     titles: {
+        switchLang: "Мова",
         home: {
             about: "Пра мяне : ",
             project: "Мае праэкты:",

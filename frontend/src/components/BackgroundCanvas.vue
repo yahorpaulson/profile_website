@@ -4,6 +4,8 @@
     
 
     onMounted(() => {
+        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d')!;
         const mouse = { x: null as number | null, y: null as number | null };
@@ -35,6 +37,7 @@
         }
 
         function drawLineToCursor() {
+
             particlesArray.forEach((particle) => {
                 let distance = 0;
                 if (mouse.x !== null && mouse.y !== null) {
@@ -60,19 +63,22 @@
         }
 
         function drawLeftBorderLine() {
-            if (mouse.x !== null && mouse.x < 150) {
-                ctx.save();
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.lineTo(0, canvas.height);
-                ctx.lineWidth = 7;
-                ctx.strokeStyle = 'lime';
-                ctx.shadowColor = 'lime';
-                ctx.shadowBlur = 30;
-                ctx.globalAlpha = 1;
-                ctx.stroke();
-                ctx.restore();
+            if(!isMobile) {
+                if (mouse.x !== null && mouse.x < 150) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(0, canvas.height);
+                    ctx.lineWidth = 7;
+                    ctx.strokeStyle = 'lime';
+                    ctx.shadowColor = 'lime';
+                    ctx.shadowBlur = 30;
+                    ctx.globalAlpha = 1;
+                    ctx.stroke();
+                    ctx.restore();
+                }
             }
+            
         }
 
         window.addEventListener('mousemove', (event) => {
@@ -116,6 +122,10 @@
     }
     li:hover{
         cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+        
     }
     
 </style>

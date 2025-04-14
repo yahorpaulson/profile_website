@@ -11,4 +11,5 @@ export const t = computed(() => translations[lang.value]);
 
 export function changeLang(code: 'en' | 'de' | 'be') {
     lang.value = code;
+    console.log(lang.value);
 }
