@@ -40,7 +40,7 @@
           mouse.y = touch.clientY;
 
           if (
-            mouse.x <=  window.innerWidth * 0.20 && 
+            mouse.x <=  window.innerWidth * 0.40 && 
             mouse.y <= window.innerHeight * 0.20
           ) { 
             isVisible.value = true;
