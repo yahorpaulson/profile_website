@@ -8,7 +8,7 @@
         <h1>{{ t.titles.home.about }}</h1>
         <p>{{ t.about.text }}</p>
       </div>
-      <img src="./../../assets/FkXe0iXk.jpeg" height="200" class="profile-photo" />
+      <img src="./../../assets/profile_photo.png" height="200" class="profile-photo" />
     </div>
 </template>
 
@@ -38,12 +38,12 @@
 
 
 .profile-photo {
-  width: 150px;
+  width: 170px;
   height: auto;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 0 10px lime;
-  margin-left: 15%;
+  margin-left: 20%;
   transition: 1s ease-in-out;
   
 }
