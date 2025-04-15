@@ -25,13 +25,14 @@ export default class Particle {
 
 
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); // Full circle
         ctx.fillStyle = this.color;
         ctx.fill();
         ctx.closePath();
 
         ctx.shadowBlur = 0;
     }
+
     update(canvasWidth: number, canvasHeight: number): void {
         this.x += this.velocity.x;
         this.y += this.velocity.y;
