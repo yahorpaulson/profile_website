@@ -1,15 +1,14 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
-    "composite": true, // ✅ Required for project references
-    "outDir": "./dist", // ✅ Ensure TypeScript generates output
+    "composite": true,
+    "outDir": "./dist",
     "skipLibCheck": true,
     "strict": true,
     "moduleResolution": "node",
-    "allowJs": true, // ✅ Ensures .js files can be used
-    "checkJs": false, // ✅ Avoids strict checking of .js files
-    "noEmit": false, // ✅ Must be false to avoid output errors
-    "noEmitOnError": false // ✅ Allows emitting even if errors exist
+    "allowJs": true,
+    "checkJs": false,
+    "noEmitOnError": false
   },
   "include": [
     "src/**/*.ts",

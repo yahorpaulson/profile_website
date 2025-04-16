@@ -121,6 +121,7 @@
         text-align: center;
         color: white;
         font-size: 1.5rem;
+        z-index: 1;
         
         text-shadow: 0 0 8px lime;
     }
@@ -131,7 +132,8 @@
         align-items: center;
         color: white;
         text-shadow: 2px 2px 4px lime;
-        
+        z-index: 1;
+        gap: 0px
     }
     .feedback-text {
         display: flex;
@@ -141,6 +143,7 @@
         height: 30vh;
         color: white;
         text-shadow: 2px 2px 4px lime;
+        z-index: 1;
         
     }
     .feedback-text > input {
@@ -189,7 +192,7 @@
     .stars {
         display: flex;
         gap: 8px;
-        margin-bottom: 1rem;
+        z-index: 1;
     }
 
     .stars svg{

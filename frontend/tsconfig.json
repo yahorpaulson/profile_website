@@ -8,10 +8,13 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "types": [
       "vite/client"
     ],
@@ -25,13 +28,5 @@
   "include": [
     "src",
     "../shared/modules/project.ts",
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
-    }
   ]
 }

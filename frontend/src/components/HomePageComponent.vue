@@ -7,6 +7,8 @@
     import SVSection from './HomePageComponents/SVSection.vue';
     import ParticleBackground from '../components/BackgroundCanvas.vue'
     import LanguageSwitcher from './LanguageSwitcher.vue';
+    import ScrollComponent from './ThreeComponents/ScrollComponent.vue';
+    
 </script>
 
 
@@ -14,6 +16,7 @@
 <template>
     <ParticleBackground/>
     <LanguageSwitcher/>
+    <ScrollComponent/>
 
     
     <div class="greet"> <GreetSection /></div>

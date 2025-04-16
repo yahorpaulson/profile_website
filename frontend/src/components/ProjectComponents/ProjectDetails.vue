@@ -4,7 +4,7 @@
     import {ref} from 'vue';
     import { Project } from '../../../../shared/modules/project';
     import BackgroundCanvas from '../BackgroundCanvas.vue';
-    import {changeLang, lang} from '../../modules/langStore'
+    import {lang} from '../../modules/langStore'
     import LanguageSwitcher from '../LanguageSwitcher.vue';
     import {t} from './../../modules/langStore' 
 
