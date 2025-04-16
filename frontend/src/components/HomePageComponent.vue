@@ -14,7 +14,7 @@
 
 
 <template>
-    <ParticleBackground/>
+    <!--<ParticleBackground/>-->
     <LanguageSwitcher/>
     <ScrollComponent/>
 
