@@ -9,6 +9,9 @@
 
     const canvas = ref<HTMLCanvasElement | null>(null); // reference to the canvas element
 
+
+    const clock = new THREE.Clock();
+
     //we define coordinates of every vertex in the array
     for (let i = 0; i < count * 3; i++) {
         positions[i] = (Math.random() - 0.5) * 100; // random value between -50 and 50
@@ -55,8 +58,14 @@
 
         function animate(){
             requestAnimationFrame(animate)
-            particles.rotation.y += 0.0002; // rotate particles
-            particles.rotation.x += 0.0001; // rotate particles
+
+            const delta = clock.getDelta(); // get time since last frame
+
+
+            //use delta to make animation frame rate independent
+            //different devices have different FPS
+            particles.rotation.y += delta * 0.05; // rotate particles
+            particles.rotation.x += delta * 0.009; // rotate particles
 
             renderer.render(scene, camera); // render the scene
         }
@@ -75,29 +84,28 @@
     });
 
     function generateCircleTexture(): THREE.Texture {
-            const size = 128;
-            const canvas = document.createElement('canvas');
-            canvas.width = size;
-            canvas.height = size;
+        const size = 128;
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
 
-            const ctx = canvas.getContext('2d')!;
-            const center = size / 2;
+        const ctx = canvas.getContext('2d')!;
+        const center = size / 2;
 
-            const gradient = ctx.createRadialGradient(center, center, 0, center, center, center);
-            gradient.addColorStop(0, 'white');
-            gradient.addColorStop(0.3, 'lime');
-            gradient.addColorStop(1, 'transparent');
+        const gradient = ctx.createRadialGradient(center, center, 0, center, center, center);
+        gradient.addColorStop(0, 'white');
+        gradient.addColorStop(0.3, 'lime');
+        gradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(center, center, center, 0, Math.PI * 2);
+        ctx.fill();
 
-            ctx.fillStyle = gradient;
-            ctx.beginPath();
-            ctx.arc(center, center, center, 0, Math.PI * 2);
-            ctx.fill();
+        const texture = new THREE.Texture(canvas);
+        texture.needsUpdate = true;
 
-            const texture = new THREE.Texture(canvas);
-            texture.needsUpdate = true;
-
-            return texture;
-        }
+        return texture;
+    }
     
 
 </script>
