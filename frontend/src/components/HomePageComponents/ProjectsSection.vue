@@ -118,7 +118,7 @@
         
         justify-content: center;
         margin: 5%;
-        
+        max-width:1900px
         
         
     }

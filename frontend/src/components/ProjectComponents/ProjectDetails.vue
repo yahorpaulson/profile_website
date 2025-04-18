@@ -80,11 +80,15 @@
     .details-container{
         display: flex;
         flex-direction: column;
+        
         color: white;
         position: relative;
         align-items: center;
         padding: 10%;
         gap: 20px;
+        font-size: clamp(1rem, 1.2vw, 1.4rem);
+        align-items: center;
+        min-height: 100vh;
         
     }
     *{
@@ -98,6 +102,10 @@
     .tags{
         display: flex;
         flex-direction: row;
+    }
+
+    .desc{
+        max-width: 1500px
     }
 
     

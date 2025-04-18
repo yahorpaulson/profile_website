@@ -133,17 +133,19 @@
         color: white;
         text-shadow: 2px 2px 4px lime;
         z-index: 1;
-        gap: 0px
+        font-size: 0;
     }
+
     .feedback-text {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 30vh;
+    
         color: white;
         text-shadow: 2px 2px 4px lime;
         z-index: 1;
+        margin-top: 20px;
         
     }
     .feedback-text > input {
@@ -193,6 +195,8 @@
         display: flex;
         gap: 8px;
         z-index: 1;
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 
     .stars svg{
