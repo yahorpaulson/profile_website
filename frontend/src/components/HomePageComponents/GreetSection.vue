@@ -101,11 +101,27 @@
 
 
 <style scoped>
-
 .greet-container {
-  position: relative;
-  text-align: center;
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+  text-shadow: 2px 2px 4px lime;
+}
+
+.greet-container h1 {
+  font-size: clamp(1rem, 3vw, 5rem);
+  animation: 1s ease-out 0s 1 slideInFromLeft;
+  animation-fill-mode: forwards;
+}
+
+.greet-container p {
+  font-size: clamp(1rem, 2vw, 3rem);
+  opacity: 0;
+  animation: 5s ease 1s 1 appear;
+  animation-fill-mode: forwards;
 }
 
 .arrow-canvas {
@@ -118,66 +134,35 @@
   pointer-events: none;
   opacity: 0.5;
   top: 20%;
- 
-  }
-
-.arrow-canvas {
   transition: opacity 0.2s ease;
 }
 
+@media (max-width: 600px) {
+  .greet-container {
+    max-width: 100%;
+    align-items: center;
+  }
+}
 
 @keyframes slideInFromLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
+
 @keyframes appear {
-    from {
-        opacity: 0; 
-        
-    }
-    to {
-        opacity: 1;
-        
-    } 
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
-    
-    div {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        color: white;
-        text-shadow: 2px 2px 4px lime;
-        font-family: 'Share Tech Mono', monospace;
-       
-    }
-
-    h1 {
-        font-size: 3rem;
-        animation: 1s ease-out 0s 1 slideInFromLeft;
-        animation-fill-mode: forwards;
-    }
-    p {
-        opacity: 0;
-        font-size: 1.5rem;
-        animation: 5s ease 1s 1 appear; /* 5s duration, 1s delay, 1 iteration */
-        animation-fill-mode: forwards; /* keep the final state */
-
-    }
-    @media (max-width:600px) {
-        div {
-            max-width: 100%;
-            align-items: center;
-        }
-    }
 
 
 </style>
