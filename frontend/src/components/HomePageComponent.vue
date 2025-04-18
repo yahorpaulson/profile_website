@@ -51,7 +51,7 @@
     .footer {
         text-align: center;
         color: lime;
-        font-size: 0.9rem;
+        font-size: clamp(0.9rem, 1.2vw, 1.9rem);
         font-family: 'VT323', monospace;
         text-shadow: 0 0 8px lime;
         margin-bottom: 2%;

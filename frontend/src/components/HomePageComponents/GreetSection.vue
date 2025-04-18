@@ -105,14 +105,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  
   height: 100vh;
   color: white;
   text-shadow: 2px 2px 4px lime;
+  text-align: center;
+  margin-left:5%;
+  margin-right:5%;
 }
 
 .greet-container h1 {
-  font-size: clamp(1rem, 3vw, 5rem);
+    font-size: clamp(2rem, 5vw, 4rem);
   animation: 1s ease-out 0s 1 slideInFromLeft;
   animation-fill-mode: forwards;
 }
@@ -139,8 +142,9 @@
 
 @media (max-width: 600px) {
   .greet-container {
-    max-width: 100%;
+    max-width: 90%;
     align-items: center;
+    justify-content: center;
   }
 }
 

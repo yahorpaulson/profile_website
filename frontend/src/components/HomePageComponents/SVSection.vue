@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
     import { ref, onMounted, onBeforeUnmount } from 'vue';
-    import { t, lang } from '../../modules/langStore';
+    import { t } from '../../modules/langStore';
     import { computed, watch } from 'vue';
 
     const fullText = computed(() => t.value.resume.text);
@@ -83,6 +83,7 @@
         justify-content: center;
         margin-bottom: 50px;
         opacity: 0.8;
+        
 
         
     }
@@ -90,8 +91,10 @@
 
         overflow: hidden;
         position: relative;
-        height: 100px;
-        width: 500px;
+        width: clamp(50rem, 60vw, 70rem);
+        height: clamp(5rem, 8vw, 10rem);
+        
+        
         background-color: transparent;
         border-color: lime;
         border-radius: 2%;
@@ -102,7 +105,7 @@
     a:link{
         color: white;
         text-decoration: none;
-        font-size: 1.5rem;
+        font-size: clamp(1.5rem, 2vw, 3rem);
     }
     a::after{
         content: "|";

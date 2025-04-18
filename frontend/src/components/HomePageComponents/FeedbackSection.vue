@@ -120,7 +120,7 @@
     .feedback-title {
         text-align: center;
         color: white;
-        font-size: 1.5rem;
+        font-size: clamp(1.5rem, 2vw, 3rem);
         z-index: 1;
         
         text-shadow: 0 0 8px lime;
@@ -133,7 +133,7 @@
         color: white;
         text-shadow: 2px 2px 4px lime;
         z-index: 1;
-        font-size: 0;
+        gap: clamp(1rem, 1.2vw, 2rem);
     }
 
     .feedback-text {
@@ -149,17 +149,19 @@
         
     }
     .feedback-text > input {
-        width: 300px;
-        height: 50px;
+        width: clamp(30rem, 40vw, 50rem);
+        height: clamp(3rem, 5vw, 8rem);
+        margin: 0 1rem 20px;
         border-radius: 10px;
         border: none;
         padding: 10px;
-        font-size: 1rem;
+        font-size: clamp(1rem, 2vw, 2.2rem);
         margin-bottom: 20px;
         box-shadow: 0 0 10px lime;
         transition: 0.3s ease-in-out;
         opacity: 0.8;
     }
+    
     .feedback-text > input:focus {
         outline: none;
         box-shadow: 0 0 20px lime;
@@ -174,13 +176,13 @@
         transition: 0.3s ease-in-out;
     }
     .feedback-text > button {
-        width: 150px;
-        height: 50px;
+        width: clamp(10rem, 15vw, 20rem);
+        height: clamp(4rem, 5vw, 7rem);
         border-radius: 10px;
         border: none;
         background-color: transparent;
         color: white;
-        font-size: 1rem;
+        font-size: clamp(1rem, 2vw, 2.2rem);
         cursor: pointer;
         box-shadow: inset 0 0 23px lime;
         transition: 0.3s ease-in-out;
@@ -200,8 +202,8 @@
     }
 
     .stars svg{
-        width: 36px;
-        height: 36px;
+        height: clamp(2.5rem, 3vw, 5rem);
+        
         fill: transparent;
         stroke: lime;
         stroke-width: 1.5;
@@ -221,4 +223,13 @@
         transition: 0.5 ease-in-out;
         animation: appear 0.5s ease-in-out;
     }
+
+    @media (max-width: 600px) {
+    .feedback-text > input {
+        width: 90%;             
+        margin: 0 auto 20px;   
+    }
+}
+
+    
 </style>

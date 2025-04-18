@@ -105,9 +105,10 @@
         color: white;
         align-items: center;
         flex-wrap: wrap;
+        
     }
     .projects-wrapper h1 {
-        font-size: 2rem; /* или 32px */
+        font-size: clamp(2rem, 3vw, 5rem);
         font-weight: bold;
         margin-bottom: 1.5rem;
         text-align: center;
@@ -118,7 +119,7 @@
         
         justify-content: center;
         margin: 5%;
-        max-width:1900px
+        max-width:90%
         
         
     }
@@ -135,6 +136,7 @@
         padding: 2%;
         margin: 1%;
         box-shadow: 0 0 10px 2px lime ;
+        font-size: clamp(1rem, 1.2vw, 3rem);
         
     }
     
@@ -156,7 +158,7 @@
         
     }
     li{
-        font-size: small;
+        font-size: clamp(1rem, 1.5vw, 1.8rem);
     }
     .loading {
         text-shadow: 0 0 10px  lime;

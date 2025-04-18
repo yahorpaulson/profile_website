@@ -23,17 +23,17 @@
         
         <button class="email" @click="openEmail">
             <span class="icon email-icon"></span>
-            {{ t.contacts.email }}
+            openEmail
         </button>
 
-        <button class="github" @click="openGithub">
+        <button class="github" @click="openGithub" value="yahorpaulson">
             <span class="icon github-icon">/</span>
-            {{ t.contacts.github }}
+            View on GitHub
         </button>
 
         <button class="tel" @click="callMe">
             <span class="icon phone-icon"></span>
-            {{ t.contacts.phone }}
+            Contact by phone
         </button>
     </div>
 </template>
@@ -85,17 +85,15 @@
     }
 
 
-    *{
-        position: relative;
-        
-    }
-    .contact-wrapper{
+    .contact-wrapper {
         display: flex;
         flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        max-width: 90%;
+        margin: 0 auto 50px;
         color: white;
-        margin-left: 100px;
-        margin-right: 100px;
-        margin-bottom: 50px;
     }
     .contactTitle{
         display: flex;
@@ -104,6 +102,9 @@
         flex: 1;
         text-align: center;
         margin-bottom: 50px;
+        margin-top: 5rem;
+
+        font-size: clamp(1rem, 2vw, 3rem);
     }
     button{
         background-color: transparent;
@@ -111,12 +112,15 @@
         color: white;
         border-color: lime;
         box-shadow: 0 0 10px 2px lime;
-        flex: 1;
         min-height: 100px;
         border-radius: 2%;
         transition: 1.2s ease;
         animation: none;
         z-index:1;
+        min-width: 30%;
+        height: clamp(70px, 8vh, 150px);
+        font-size: clamp(1rem, 2vw, 1.8rem);
+        padding-top: 30px;
     }
 
     button:hover{
@@ -245,7 +249,7 @@
     /**__________________PHONE BUTTON________________ */
     
     
-    .phone{
+    .tel{
         position: relative;
     }
     .phone-icon {
@@ -302,6 +306,7 @@
             margin-left: 5%;
             margin-right: 5%;
             
+
             
         }
 

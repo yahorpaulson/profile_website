@@ -83,12 +83,16 @@
         
         color: white;
         position: relative;
-        align-items: center;
-        padding: 10%;
-        gap: 20px;
-        font-size: clamp(1rem, 1.2vw, 1.4rem);
+        gap: 2rem;
+        font-size: clamp(1rem, 1.5vw, 2.2rem);
         align-items: center;
         min-height: 100vh;
+        max-width: 80%;
+        margin: 5% auto;
+        padding: 0 1rem;
+
+        justify-content: center;
+
         
     }
     *{
@@ -104,8 +108,9 @@
         flex-direction: row;
     }
 
-    .desc{
-        max-width: 1500px
+    .desc {
+        max-width: 100%;
+        text-align: center;
     }
 
     

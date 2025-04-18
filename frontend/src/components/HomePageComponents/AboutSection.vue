@@ -19,6 +19,7 @@
 
   align-items: center;
   min-height: 100vh;
+  max-width:95%;
   gap: clamp(2rem, 8vw, 30rem);
   
   justify-content: center;
