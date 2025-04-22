@@ -128,7 +128,7 @@
 }
 
 .arrow-canvas {
-  position: absolute;
+  position: fixed;
   width: 100px;
   height: 300px;
   bottom: 5%;
