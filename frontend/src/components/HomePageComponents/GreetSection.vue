@@ -141,7 +141,7 @@
 
 @media (max-width: 600px) {
   .greet-container {
-    max-width: 90%;
+    max-width: 100%;
     align-items: center;
     justify-content: center;
   }
