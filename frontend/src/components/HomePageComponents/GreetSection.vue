@@ -115,13 +115,13 @@
 }
 
 .greet-container h1 {
-    font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.5rem, 3vw, 5rem); 
   animation: 1s ease-out 0s 1 slideInFromLeft;
   animation-fill-mode: forwards;
 }
 
 .greet-container p {
-  font-size: clamp(1rem, 2vw, 3rem);
+  font-size: clamp(1.5rem, 2.5vw, 4rem);
   opacity: 0;
   animation: 5s ease 1s 1 appear;
   animation-fill-mode: forwards;

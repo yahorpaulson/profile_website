@@ -1,17 +1,19 @@
 <script setup lang="ts">
     import { onMounted } from 'vue';
-    import { useRoute } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     import {ref} from 'vue';
     import { Project } from '../../../../shared/modules/project';
-    import BackgroundCanvas from '../BackgroundCanvas.vue';
+    import ScrollComponent from '../ThreeComponents/ScrollComponent.vue';
     import {lang} from '../../modules/langStore'
     import LanguageSwitcher from '../LanguageSwitcher.vue';
     import {t} from './../../modules/langStore' 
+    import BackgroundCanvas from '../BackgroundCanvas.vue';
 
 
     const project = ref<Project | null>(null);
 
     const route = useRoute();
+    const router = useRouter();
 
 
     onMounted(async () => {
@@ -26,13 +28,28 @@
         }
     });
 
+        
+    function transfer(){
+        router.back();
+    }
+
     
 </script>
     
 
 <template>
+
     <BackgroundCanvas/>
+    
+    
+    <ScrollComponent/>
+    
     <LanguageSwitcher/>
+
+    <div class="return">
+        <button @click="transfer()">←</button>
+            
+    </div>
 
     <div class="details-container">
         <h1>{{ project?.title[lang] }}</h1>
@@ -71,6 +88,7 @@
 
 
 
+
     </div>
 
 </template>
@@ -82,22 +100,17 @@
         flex-direction: column;
         
         color: white;
-        position: relative;
         gap: 2rem;
         font-size: clamp(1rem, 1.5vw, 2.2rem);
         align-items: center;
-        min-height: 100vh;
-        max-width: 80%;
-        margin: 5% auto;
-        padding: 0 1rem;
-
+        height: 100%;
+        width: clamp(60px, 80vw, 1000px);
         justify-content: center;
-
-        
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 5%;
     }
-    *{
-        cursor: default;
-    }
+    
     .tags li,
     .insights li,
     .goals li {
@@ -107,11 +120,26 @@
         display: flex;
         flex-direction: row;
     }
-
-    .desc {
-        max-width: 100%;
-        text-align: center;
+    .return{
+        
+        background-color: transparent;
+        
+        width: clamp(3rem, 10vw,  10rem);
+        height: clamp(1rem, 2.2vw,  6rem);
+        position: relative;
+        left: 80%;
+        
     }
+    .return > button{
+        color: white;
+        background-color: transparent;
+        border: none;
+        width: 100%;
+        height:100%;
+        font-size:clamp(3rem, 5vw,  10rem);
+        cursor: pointer;
+    }
+
 
     
 </style>

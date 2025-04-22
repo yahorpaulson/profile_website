@@ -119,7 +119,7 @@
         z-index:1;
         min-width: 30%;
         height: clamp(70px, 8vh, 150px);
-        font-size: clamp(1rem, 2vw, 1.8rem);
+        font-size: clamp(1rem, 1.5vw, 3rem);
         padding-top: 30px;
     }
 

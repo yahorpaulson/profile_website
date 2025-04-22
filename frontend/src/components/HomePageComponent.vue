@@ -5,7 +5,7 @@
     import ProjectsSection from './HomePageComponents/ProjectsSection.vue';
     import FeedbackSection from './HomePageComponents/FeedbackSection.vue';
     import SVSection from './HomePageComponents/SVSection.vue';
-    import ParticleBackground from '../components/BackgroundCanvas.vue'
+    
     import LanguageSwitcher from './LanguageSwitcher.vue';
     import ScrollComponent from './ThreeComponents/ScrollComponent.vue';
     

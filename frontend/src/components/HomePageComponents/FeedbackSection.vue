@@ -149,17 +149,18 @@
         
     }
     .feedback-text > input {
-        width: clamp(30rem, 40vw, 50rem);
-        height: clamp(3rem, 5vw, 8rem);
+        width: clamp(20rem, 40vw, 50rem);
+        height: clamp(3rem, 5vw, 4rem);
         margin: 0 1rem 20px;
         border-radius: 10px;
-        border: none;
+        
         padding: 10px;
-        font-size: clamp(1rem, 2vw, 2.2rem);
+        font-size: clamp(1.2rem, 2vw, 2rem);
         margin-bottom: 20px;
         box-shadow: 0 0 10px lime;
         transition: 0.3s ease-in-out;
         opacity: 0.8;
+        border: none;
     }
     
     .feedback-text > input:focus {

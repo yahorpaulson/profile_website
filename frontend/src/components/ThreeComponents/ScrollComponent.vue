@@ -2,7 +2,7 @@
     import * as THREE from 'three';
     import { onMounted, ref } from 'vue';
 
-    const count = 1000;
+    const count = 800;
     const positions = new Float32Array(count * 3); // each vertex has 3 coordinates (x, y, z)
 
     const geometry = new THREE.BufferGeometry(); // create a buffer geometry#
@@ -21,18 +21,23 @@
     //each of 3 values in the array is a coordinate of a vertex
 
     const material = new THREE.PointsMaterial({
-        size: 0.8, // size of each point
-        color: 0x00ff00, // lime color
+        size: 1, // size of each point
+        color: 0xffffff, // dark green color
         blending: THREE.AdditiveBlending, // blending mode
         sizeAttenuation: true,
-        map: generateCircleTexture() // texture for the points
+        map: generateCircleTexture(), // texture for the points
+        depthWrite: false,
     });
 
 
-    const particles = new THREE.Points(geometry, material); // create particles
+
+
+    const particlesSlow = new THREE.Points(geometry, material); // create particles
+    const particlesNormal = new THREE.Points(geometry, material);
 
     const scene = new THREE.Scene()
-    scene.add(particles); // add particles to the scene
+    scene.add(particlesSlow); // add particles to the scene
+    scene.add(particlesNormal);
 
 
 
@@ -64,8 +69,10 @@
 
             //use delta to make animation frame rate independent
             //different devices have different FPS
-            particles.rotation.y += delta * 0.05; // rotate particles
-            particles.rotation.x += delta * 0.009; // rotate particles
+            particlesSlow.rotation.y += delta * 0.05; // rotate particles
+            particlesSlow.rotation.x += delta * 0.009; // rotate particles
+
+            particlesNormal.rotation.y += delta * 0.003;
 
             renderer.render(scene, camera); // render the scene
         }
@@ -94,8 +101,10 @@
 
         const gradient = ctx.createRadialGradient(center, center, 0, center, center, center);
         gradient.addColorStop(0, 'white');
-        gradient.addColorStop(0.3, 'lime');
+        gradient.addColorStop(0.2, 'yellow');
+        gradient.addColorStop(0.6, 'rgba(255,255,255,0.1)');
         gradient.addColorStop(1, 'transparent');
+
         ctx.fillStyle = gradient;
         ctx.beginPath();
         ctx.arc(center, center, center, 0, Math.PI * 2);
@@ -119,6 +128,7 @@
 <style>
     
     canvas {
+        z-index: 3;
         position: fixed;
         top: 0;
         left: 0;
