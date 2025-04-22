@@ -130,13 +130,15 @@
 .arrow-canvas {
   position: absolute;
   width: 100px;
-  height: 100%;
+  height: 300px;
+  bottom: 5%;
   background: transparent;
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
   opacity: 0.5;
   transition: opacity 0.2s ease;
+  
 }
 
 @media (max-width: 600px) {
