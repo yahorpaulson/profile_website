@@ -130,7 +130,7 @@
 .arrow-canvas {
   position: fixed;
   width: 100px;
-  height: 300px;
+  height: 200px;
   bottom: 5%;
   background: transparent;
   left: 50%;
