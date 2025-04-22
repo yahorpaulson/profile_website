@@ -72,7 +72,7 @@
             ctx.closePath()
 
             y -= 2
-            if (y < 0) y = 200
+            if (y < 0) y = 400
 
             animationFrameId = requestAnimationFrame(drawArrow)
         }
@@ -107,7 +107,7 @@
   justify-content: center;
   
   min-height: 100vh;
-  overflow: hidden;
+  
   color: white;
   text-shadow: 2px 2px 4px lime;
   text-align: center;
@@ -131,7 +131,7 @@
 .arrow-canvas {
   position: fixed;
   width: 100px;
-  height: 100px;
+  height: 400px;
   
   background: transparent;
   left: 50%;
