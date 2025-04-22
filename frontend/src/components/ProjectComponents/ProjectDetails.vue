@@ -7,7 +7,7 @@
     import {lang} from '../../modules/langStore'
     import LanguageSwitcher from '../LanguageSwitcher.vue';
     import {t} from './../../modules/langStore' 
-    import BackgroundCanvas from '../BackgroundCanvas.vue';
+
 
 
     const project = ref<Project | null>(null);
@@ -18,6 +18,7 @@
 
     onMounted(async () => {
         const slug = route.params.slug as string;
+        
         try {
             const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${encodeURIComponent(slug)}`);
 
@@ -38,13 +39,13 @@
     
 
 <template>
-
-    <BackgroundCanvas/>
-    
-    
     <ScrollComponent/>
     
     <LanguageSwitcher/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Genos:ital,wght@0,100..900;1,100..900&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poiret+One&display=swap" rel="stylesheet">
 
     <div class="return">
         <button @click="transfer()">←</button>
@@ -95,6 +96,14 @@
 
 
 <style scoped>
+    *{
+        font-family: 'Manrope', sans-serif;
+        font-family: "IBM Plex Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-variation-settings:
+        "wdth" 100;
+    }
     .details-container{
         display: flex;
         flex-direction: column;
@@ -109,6 +118,9 @@
         text-align: center;
         margin: 0 auto;
         margin-top: 5%;
+        z-index: 1;
+        position: relative;
+
     }
     
     .tags li,
@@ -138,6 +150,10 @@
         height:100%;
         font-size:clamp(3rem, 5vw,  10rem);
         cursor: pointer;
+    }
+    ul {
+        list-style: none;
+        padding-left: 0;
     }
 
 

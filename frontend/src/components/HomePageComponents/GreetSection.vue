@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
     
-    import { h, onMounted, ref } from 'vue';
+    import { onMounted, ref } from 'vue';
 
     const arrowCanvas = ref<HTMLCanvasElement | null>(null);
 
@@ -71,8 +71,8 @@
             
             ctx.closePath()
 
-            y -= 4
-            if (y < 0) y = 500
+            y -= 2
+            if (y < 0) y = 200
 
             animationFrameId = requestAnimationFrame(drawArrow)
         }
@@ -130,13 +130,12 @@
 .arrow-canvas {
   position: absolute;
   width: 100px;
-  height: 100px;
+  height: 100%;
   background: transparent;
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
   opacity: 0.5;
-  top: 20%;
   transition: opacity 0.2s ease;
 }
 

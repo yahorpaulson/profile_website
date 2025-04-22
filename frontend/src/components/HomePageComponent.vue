@@ -17,7 +17,9 @@
     <!--<ParticleBackground/>-->
     <LanguageSwitcher/>
     <ScrollComponent/>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Genos:ital,wght@0,100..900;1,100..900&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poiret+One&display=swap" rel="stylesheet">
     
     <div class="greet"> <GreetSection /></div>
     <div class="about"><AboutSection /></div>
@@ -40,6 +42,14 @@
     
 
 <style>
+    *{
+        font-family: 'Manrope', sans-serif;
+        font-family: "IBM Plex Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-variation-settings:
+        "wdth" 100;
+    }
 
     .about{
         margin-bottom: 20%;
@@ -52,9 +62,12 @@
         text-align: center;
         color: lime;
         font-size: clamp(0.9rem, 1.2vw, 1.9rem);
-        font-family: 'VT323', monospace;
         text-shadow: 0 0 8px lime;
         margin-bottom: 2%;
+        z-index: 1;
+        position: relative;
+        
+        
     }
 
 

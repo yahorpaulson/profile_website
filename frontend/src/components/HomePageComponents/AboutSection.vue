@@ -23,6 +23,8 @@
   gap: clamp(2rem, 8vw, 30rem);
   
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
   
 

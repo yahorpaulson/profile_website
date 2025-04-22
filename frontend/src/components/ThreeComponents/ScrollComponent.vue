@@ -2,7 +2,7 @@
     import * as THREE from 'three';
     import { onMounted, ref } from 'vue';
 
-    const count = 800;
+    const count = 1200;
     const positions = new Float32Array(count * 3); // each vertex has 3 coordinates (x, y, z)
 
     const geometry = new THREE.BufferGeometry(); // create a buffer geometry#
@@ -22,7 +22,7 @@
 
     const material = new THREE.PointsMaterial({
         size: 1, // size of each point
-        color: 0xffffff, // dark green color
+        color: 0xffffff, 
         blending: THREE.AdditiveBlending, // blending mode
         sizeAttenuation: true,
         map: generateCircleTexture(), // texture for the points
@@ -30,14 +30,13 @@
     });
 
 
-
-
-    const particlesSlow = new THREE.Points(geometry, material); // create particles
-    const particlesNormal = new THREE.Points(geometry, material);
+    const particles = new THREE.Points(geometry, material); // create particles
+    
+    
 
     const scene = new THREE.Scene()
-    scene.add(particlesSlow); // add particles to the scene
-    scene.add(particlesNormal);
+    scene.add(particles); // add particles to the scene
+    
 
 
 
@@ -69,10 +68,10 @@
 
             //use delta to make animation frame rate independent
             //different devices have different FPS
-            particlesSlow.rotation.y += delta * 0.05; // rotate particles
-            particlesSlow.rotation.x += delta * 0.009; // rotate particles
+            particles.rotation.y += delta * 0.05; // rotate particles
+            particles.rotation.x += delta * 0.01; // rotate particles
 
-            particlesNormal.rotation.y += delta * 0.003;
+            
 
             renderer.render(scene, camera); // render the scene
         }
@@ -101,7 +100,7 @@
 
         const gradient = ctx.createRadialGradient(center, center, 0, center, center, center);
         gradient.addColorStop(0, 'white');
-        gradient.addColorStop(0.2, 'yellow');
+        gradient.addColorStop(0.2, 'grey');
         gradient.addColorStop(0.6, 'rgba(255,255,255,0.1)');
         gradient.addColorStop(1, 'transparent');
 
@@ -128,7 +127,7 @@
 <style>
     
     canvas {
-        z-index: 3;
+        z-index: 0;
         position: fixed;
         top: 0;
         left: 0;
@@ -136,6 +135,7 @@
         width: 100vw;
         height: 100vh;
         pointer-events: none;
+        background-color: black;
     }
 
 </style>
