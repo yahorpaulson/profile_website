@@ -106,7 +106,8 @@
   flex-direction: column;
   justify-content: center;
   
-  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
   color: white;
   text-shadow: 2px 2px 4px lime;
   text-align: center;
@@ -130,8 +131,8 @@
 .arrow-canvas {
   position: fixed;
   width: 100px;
-  height: 200px;
-  bottom: 5%;
+  height: 100px;
+  
   background: transparent;
   left: 50%;
   transform: translateX(-50%);
