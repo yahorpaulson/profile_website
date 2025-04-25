@@ -63,12 +63,13 @@ export function validateProject(project: any): string[] {
 
 
     for (const field of ['goals', 'insights']) {
-        const value = project[field];
-        if (value) {
-            for (const lang of ['en', 'de', 'be'] as Lang[]) {
-                if (!Array.isArray(value[lang])) {
-                    errors.push(`${field}["${lang}"] must be an array of strings`);
-                }
+        for (const lang of ['en', 'de', 'be']) {
+            const value = project[field][lang];
+            if (typeof value === 'string') {
+                project[field][lang] = value
+                    .split(',')
+                    .map(s => s.trim())
+                    .filter(Boolean);
             }
         }
     }

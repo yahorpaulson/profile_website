@@ -31,7 +31,7 @@
     
 
     <footer class="footer">
-  ©     {{ new Date().getFullYear() }} Yahor Paulson. All rights reserved.
+  ©     {{ new Date().getFullYear() }} Yahor Paulson (Siarheyeu). All rights reserved.
     </footer>
 
 </template>
@@ -66,7 +66,6 @@
         margin-bottom: 2%;
         z-index: 1;
         position: relative;
-        
         
     }
 
