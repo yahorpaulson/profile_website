@@ -34,7 +34,7 @@ export default {
         }
     },
     resume: {
-        text: 'Access to my resume...'
+        text: 'Access to my SV...'
     }
 
 
