@@ -62,10 +62,12 @@
                     class="github-icon"
                     >&lt;/&gt;
                 </a>
+                <p v-if="project.inProgress" class="progress-title">in progress</p>
 
                 <h3>{{ project.title?.[currentLang] || 'No title' }}</h3>
 
                 <p>{{ project.shortDescription?.[currentLang] || 'No description' }}</p>
+
   
                 <ul v-if="project.tags?.length">
                     <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
@@ -163,6 +165,14 @@
     .loading {
         text-shadow: 0 0 10px  lime;
         animation: pulse 1.5s infinite ease-in-out;
+    }
+    .progress-title {
+        color: white;
+        position: relative;
+        margin-left: auto;
+        margin-right: 0;
+        top: -3rem;
+        display: block;
     }
 
 </style>
