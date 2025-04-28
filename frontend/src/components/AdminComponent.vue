@@ -112,6 +112,7 @@
         <option value="description">Description</option>
         <option value="shortDescription">Short Description</option>
         <option value="link">Link</option>
+        <option value="goals">Goals</option>
         <option value="insights">Insights</option>
         <option value="tags">Tags</option>
         <option value="inProgress">In Progress</option>
