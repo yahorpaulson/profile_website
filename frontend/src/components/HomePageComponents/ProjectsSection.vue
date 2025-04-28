@@ -50,28 +50,35 @@
         <h1 v-if="isLoading" class="loading">Loading...Please wait..</h1>
 
         <div class="cards-wrapper" >
+            
+            
             <div
                 class="project"
                 v-for="project in projects"
                 :key="project.slug" @click="projectDetailsTransfer(project.slug)"
                 >
-                <a
-                    v-if="project.link"
-                    :href="project.link"
-                    target="_blank"
-                    class="github-icon"
-                    >&lt;/&gt;
-                </a>
-                <p v-if="project.inProgress" class="progress-title">in progress</p>
+                <div class="progress-title-wrapper">
+                    <p v-if="project.inProgress" class="progress-title">in progress</p>
+                </div>
+                <div class="project-info">
+                    <a
+                        v-if="project.link"
+                        :href="project.link"
+                        target="_blank"
+                        class="github-icon"
+                        >&lt;/&gt;
+                    </a>
+                
 
-                <h3>{{ project.title?.[currentLang] || 'No title' }}</h3>
+                    <h3>{{ project.title?.[currentLang] || 'No title' }}</h3>
 
-                <p>{{ project.shortDescription?.[currentLang] || 'No description' }}</p>
+                    <p>{{ project.shortDescription?.[currentLang] || 'No description' }}</p>
 
   
-                <ul v-if="project.tags?.length">
-                    <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
-                </ul>
+                    <ul v-if="project.tags?.length">
+                        <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
+                    </ul>
+                </div>
             </div>
       </div>
     </section>
@@ -153,7 +160,6 @@
         text-decoration: none;
         position: relative;
         
-        
     }
     .project:hover .github-icon {
         animation: moveicon 2s ease-in-out infinite;
@@ -166,13 +172,21 @@
         text-shadow: 0 0 10px  lime;
         animation: pulse 1.5s infinite ease-in-out;
     }
-    .progress-title {
-        color: white;
-        position: relative;
-        margin-left: auto;
-        margin-right: 0;
-        top: -3rem;
-        display: block;
+    .progress-title-wrapper {
+        display: flex;
+        justify-content: flex-end;
     }
+    .progress-title {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: white;
+        padding: 0.2em 0.5em;
+        background-color: rgba(74, 202, 42, 0.8); 
+        border-radius: 5px;
+}
+
+
+   
 
 </style>

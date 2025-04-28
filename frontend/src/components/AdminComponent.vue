@@ -78,7 +78,7 @@
       <input v-model="tagsInput" type="text" id="tags" placeholder="e.g. vue, vite, typescript" />
 
       <label for="inProgress">In Progress</label>
-      <input v-model="addProject.inProgress" type="checkbox" id="inProgress" placeholder="In Progress" />
+      <input v-model="addProject.inProgress" type="checkbox" id="inProgress" placeholder="In Progress" @click="changeProgressStatus()"/>
         
       <div class="field-row">
         <label>Description (EN)</label>
@@ -130,9 +130,15 @@
 
       <div  v-if="editableProject.field && editableProject.language" class="field-row">
         <label :for="editableProject.field">{{ editableProject.field }}</label>
+        <input v-if="editableProject.field === 'inProgress'"
+          v-model="editableProject.inProgress"
+          type="checkbox"
+          :id="editableProject.field"
+        />
         <input
+          v-else
           v-model="editableProject[editableProject.field][editableProject.language]"
-          :type="editableProject.field === 'inProgress' ? 'checkbox' : 'text'"
+          type="text"
           :id="editableProject.field"
         />
       </div>
@@ -240,7 +246,6 @@
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`);
       if (!res.ok) throw new Error('Not found');
       const project = await res.json();
-      console.log('[DEBUG] Project fetched:', project);
       Object.assign(editableProject, JSON.parse(JSON.stringify(project)));
       projectFound.value = true;
       
@@ -280,8 +285,6 @@
     }
   }
 
-  
-
   async function createProject() {
     addProject.tags = tagsInput.value.split(',').map(t => t.trim()).filter(Boolean);
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin`, {
@@ -301,11 +304,6 @@
     alert('Project created');
     resetState();
   }
-
-
-
-
-  
   async function deleteProject() {
     const slug = slugInput.value.trim();
 
@@ -324,16 +322,6 @@
     alert('Project deleted');
     resetState();
   }
-
-
-  async function fetchProjects(slug: string) {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`);
-    if (!res.ok) throw new Error('Not found');
-    const project = await res.json();
-    console.log('[DEBUG] Project fetched:', project);
-    
-  }
-
     
   async function editProject() {
     
@@ -342,7 +330,6 @@
     
     const update = { ...editableProject };
     delete update._id;
-    console.log('[DEBUG] Editable fields:', update);
 
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
       method: 'PATCH',
@@ -380,7 +367,7 @@
 
   function startAction(action: 'edit' | 'delete' | 'add' |'read' |null) {
 
-    console.log('[DEBUG] startAction called with:', action);
+    
     currentAction.value = action
     showSlugInput.value = action !== 'add'
     slugInput.value = ''
@@ -462,13 +449,16 @@
 </script>
 
 <style scoped>
+
+  *{
+    background-color: azure;
+  }
   .edit-context-menu {
     margin-top: 2rem;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 2rem;
     background: #f9f9f9;
-    max-width: 800px;
     font-family: 'Courier New', monospace;
   }
 
@@ -492,6 +482,13 @@
     padding: 6px;
     font-family: inherit;
   }
+  button{
+    width: 20rem;
+    height: 5rem;
+    border-radius: 5%;
+    background-color: aquamarine;
+    font-size: larger;
+  }
 
   button.save {
     margin-top: 2rem;
@@ -508,6 +505,13 @@
 
   .logout {
     margin-bottom: 1rem;
+  }
+  .action{
+    display: flex;
+    justify-content: center;
+    gap:10px;
+    padding: 20px;
+    
   }
 
 </style>
