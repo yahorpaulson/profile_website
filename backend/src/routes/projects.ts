@@ -62,17 +62,6 @@ export function validateProject(project: any): string[] {
     }
 
 
-    for (const field of ['goals', 'insights']) {
-        for (const lang of ['en', 'de', 'be']) {
-            const value = project[field][lang];
-            if (typeof value === 'string') {
-                project[field][lang] = value
-                    .split(',')
-                    .map(s => s.trim())
-                    .filter(Boolean);
-            }
-        }
-    }
 
     return errors;
 }

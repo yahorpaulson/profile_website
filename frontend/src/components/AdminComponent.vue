@@ -78,7 +78,7 @@
       <input v-model="tagsInput" type="text" id="tags" placeholder="e.g. vue, vite, typescript" />
 
       <label for="inProgress">In Progress</label>
-      <input v-model="addProject.inProgress" type="checkbox" id="inProgress" placeholder="In Progress" @click="changeProgressStatus()"/>
+      <input v-model="addProject.inProgress" type="checkbox" id="inProgress" placeholder="In Progress"/>
         
       <div class="field-row">
         <label>Description (EN)</label>
@@ -127,6 +127,12 @@
           <option value="be">BE</option>
         </select>
       </div>
+
+      <textarea v-if="['goals', 'insights'].includes(editableProject.field)"
+        v-model="editableProject[editableProject.field][editableProject.language]"
+        :id="editableProject.field"
+        rows="4"
+      ></textarea>
 
 
       <div  v-if="editableProject.field && editableProject.language" class="field-row">
@@ -242,7 +248,7 @@
 
   async function handleSlugSubmit() {
     const slug = slugInput.value.trim();
-    console.log('[DEBUG] handleSlugSubmit called with slug:', slug);
+    
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${slug}`);
       if (!res.ok) throw new Error('Not found');
@@ -330,6 +336,22 @@
     const slug = slugInput.value.trim();
     
     const update = { ...editableProject };
+
+
+    for (const field of ['goals', 'insights']) {
+        for (const lang of ['en', 'de', 'be']) {
+            const value = update[field]?.[lang];
+
+            if (typeof value === 'string') {
+                update[field][lang] = value
+                    .split(';')
+                    .map(s => s.trim())
+                    .filter(Boolean);
+            }
+        }
+    }
+
+
     delete update._id;
 
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/admin/${slug}`, {
@@ -420,8 +442,7 @@
     }
 
     if (action === 'read') {
-      
-      console.log('Reading feedbacks...');
+
       fetchFeedbacks()
       showSlugInput.value = false
       
