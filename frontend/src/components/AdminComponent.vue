@@ -119,7 +119,7 @@
         <option value="slug">Slug</option>
       </select>
 
-      <div v-if="['title', 'description', 'shortDescription'].includes(editableProject.field)">
+      <div v-if="['title', 'description', 'shortDescription', 'goals', 'insights'].includes(editableProject.field)">
         <label for="language">Language:</label>
         <select id="language" v-model="editableProject.language">
           <option value="en">EN</option>
