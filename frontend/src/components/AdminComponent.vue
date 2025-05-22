@@ -338,18 +338,8 @@
     const update = { ...editableProject };
 
 
-    for (const field of ['goals', 'insights']) {
-        for (const lang of ['en', 'de', 'be']) {
-            const value = update[field]?.[lang];
 
-            if (typeof value === 'string') {
-                update[field][lang] = value
-                    .split(';')
-                    .map(s => s.trim())
-                    .filter(Boolean);
-            }
-        }
-    }
+
 
 
     delete update._id;

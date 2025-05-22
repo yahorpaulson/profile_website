@@ -81,8 +81,6 @@
             let data = await res.json()
             
 
-            console.log('[DEBUG]: Response:', data)
-
             if (res.ok) {
                 showThanks.value = true
 

@@ -24,6 +24,7 @@
 
             const data = await res.json();
             project.value = data;
+            console.log(JSON.stringify(project.value));
         } catch (e) {
             console.error('Error loading project details:', e);
         }

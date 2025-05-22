@@ -50,16 +50,13 @@ export function validateProject(project: any): string[] {
         errors.push('ShortDescription is required');
     }
 
-    /** 
-    if (typeof project.inProgress !== 'boolean') {
-        errors.push('inProgress must be a boolean');
-    }
-    */
+
 
 
     if (project.tags && !Array.isArray(project.tags)) {
         errors.push('Tags must be an array of strings');
     }
+    //TODO: fix
 
 
 
@@ -182,6 +179,7 @@ router.patch('/admin/:slug', verifyToken, async (req: Request, res: Response): P
         }
 
         const collection = getCollection();
+
         const result = await collection.updateOne({ slug }, { $set: updates });
 
         if (result.matchedCount === 0) {
