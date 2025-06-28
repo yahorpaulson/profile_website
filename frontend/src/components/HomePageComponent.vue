@@ -14,7 +14,7 @@
 
 
 <template>
-    <!--<ParticleBackground/>-->
+    
     <LanguageSwitcher/>
     <ScrollComponent/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
