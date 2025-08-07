@@ -1,4 +1,3 @@
-import { send } from "vite";
 
 export default {
     about: {
@@ -34,7 +33,7 @@ export default {
         }
     },
     resume: {
-        text: 'Access to my SV...'
+        text: 'Access to my CV...'
     }
 
 
