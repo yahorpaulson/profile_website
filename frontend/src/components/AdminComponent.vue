@@ -213,8 +213,8 @@
     inProgress: false,
     language: 'en',
     description: { en: '', de: '', be: '' },
-    insights: { en: [], de: [], be: [] },
-    goals: { en: [], de: [], be: [] },
+    insights: { en: '', de: '', be: '' },
+    goals: { en: '', de: '', be: '' },
     link: '',
     slug: ''
   });
