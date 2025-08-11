@@ -64,9 +64,11 @@
         <div class="goals" v-if="project?.goals?.[lang]?.length">
             <strong>{{ t.titles.project.goals }}</strong>
             <ul>
-                <li v-for="(item, index) in (Array.isArray(project?.insights?.[lang])
-                    ? project.insights[lang]
-                    : String(project?.insights?.[lang] || '')
+
+                <!--if element is a string convert to array-->
+                <li v-for="(item, index) in (Array.isArray(project?.goals?.[lang])
+                    ? project.goals[lang]
+                    : String(project?.goals?.[lang] || '')
                         .split(/\r?\n|;|,|•/)
                         .map(s => s.trim())
                         .filter(Boolean)
@@ -80,7 +82,14 @@
         <div class="insights" v-if="project?.insights?.[lang]?.length">
             <strong>{{ t.titles.project.insights }}</strong>
             <ul>
-                <li v-for="(item, index) in project?.insights?.[lang]" :key="index">{{ item }}</li>
+                <!--if element is a string convert to array-->
+                <li v-for="(item, index) in (Array.isArray(project?.insights?.[lang])
+                    ? project.insights[lang]
+                    : String(project?.insights?.[lang] || '')
+                        .split(/\r?\n|;|,|•/)
+                        .map(s => s.trim())
+                        .filter(Boolean)
+                    )" :key="index">{{ item }}</li>
             </ul>
         </div>
 
