@@ -64,7 +64,13 @@
         <div class="goals" v-if="project?.goals?.[lang]?.length">
             <strong>{{ t.titles.project.goals }}</strong>
             <ul>
-                <li v-for="(item, index) in project.goals?.[lang]" :key="index">{{ item }}</li>
+                <li v-for="(item, index) in (Array.isArray(project?.insights?.[lang])
+                    ? project.insights[lang]
+                    : String(project?.insights?.[lang] || '')
+                        .split(/\r?\n|;|,|•/)
+                        .map(s => s.trim())
+                        .filter(Boolean)
+                    )" :key="index">{{ item }}</li>
             </ul>
         </div>
 
