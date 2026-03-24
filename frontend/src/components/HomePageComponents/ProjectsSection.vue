@@ -196,4 +196,11 @@ li {
     background-color: rgba(74, 202, 42, 0.8);
     border-radius: 5px;
 }
+
+@media screen and (max-width: 768px) {
+    .cards-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+}
 </style>
