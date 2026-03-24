@@ -1,15 +1,15 @@
 <script setup lang="ts">
-  import {t} from './../../modules/langStore'
+import { t } from './../../modules/langStore'
 </script>
 
 <template>
-    <div class="about-wrapper">
-      <div class="info">
-        <h1>{{ t.titles.home.about }}</h1>
-        <p>{{ t.about.text }}</p>
-      </div>
-      <img src="./../../assets/profile_photo.png" class="profile-photo" />
+  <div class="about-wrapper">
+    <div class="info">
+      <h1>{{ t.titles.home.about }}</h1>
+      <p>{{ t.about.text }}</p>
     </div>
+    <img src="./../../assets/profile_photo.png" class="profile-photo" />
+  </div>
 </template>
 
 <style lang="css" scoped>
@@ -18,15 +18,15 @@
   grid-template-columns: auto auto auto;
 
   align-items: center;
-  min-height: 100vh;
-  max-width:95%;
+
+  max-width: 95%;
   gap: clamp(2rem, 8vw, 30rem);
-  
+
   justify-content: center;
   position: relative;
   z-index: 1;
 }
-  
+
 
 .info {
   color: white;
@@ -34,9 +34,9 @@
   line-height: 1.6;
   max-width: 1500px;
   justify-self: center;
-  margin-left:20%;
+  margin-left: 20%;
   justify-self: center;
-  
+
 }
 
 
@@ -48,7 +48,7 @@
   border-radius: 10px;
   box-shadow: 0 0 10px lime;
   transition: 0.3s ease-in-out;
-  
+
 }
 
 .profile-photo:hover {
@@ -66,9 +66,9 @@
 
   .info {
     text-align: center;
-    margin-left: 0;        
-    justify-self: unset;      
-    align-self: center;     
+    margin-left: 0;
+    justify-self: unset;
+    align-self: center;
     max-width: 90%;
   }
 
@@ -76,8 +76,4 @@
     display: none;
   }
 }
-
-
 </style>
-
-
