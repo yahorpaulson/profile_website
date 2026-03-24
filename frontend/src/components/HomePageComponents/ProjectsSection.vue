@@ -44,10 +44,10 @@ function projectDetailsTransfer(slug: string) {
 
     <section class="projects-wrapper">
 
-        <h1>{{ t.titles.home.project }}</h1>
+        <h2>{{ t.titles.home.project }}</h2>
 
 
-        <h1 v-if="isLoading" class="loading">Loading...Please wait..</h1>
+        <h3 v-if="isLoading" class="loading">Loading...Please wait..</h3>
 
         <div class="cards-wrapper">
 
