@@ -1,42 +1,38 @@
-
 export default {
-    about: {
-        title: "About me",
-        text: `My name is Yahor, and I am a software developer from Belarus (Minsk). Since 2019, I have been living and 
-        studying in Austria (Klagenfurt), where I have been pursuing a Bachelor's degree in Applied Informatics since 2020. 
-        In my work, I combine technical precision with practical thinking and a strong focus on quality. I have been working 
-        part-time since 2021 alongside my studies, which has helped me develop solid skills in independent work, time management, 
-        and quick decision-making. In addition, I speak German and English at a B2 level, and I am always open to learning new 
-        things and growing as a professional.`
+  about: {
+    title: "About me",
+    text: `I am a software engineer focused on building reliable, maintainable, and well-structured systems. My work combines solid engineering principles with a practical approach to solving real-world problems.
+
+I have experience working in real development environments and across different domains, which has strengthened my ability to quickly understand unfamiliar systems and adapt to new technologies.
+
+I value clean architecture, clarity, and long-term sustainability in software development. While I am comfortable working across the full stack, I approach problems from a system-level perspective, aiming for solutions that are both robust and scalable.
+
+I continuously develop my technical and professional skills and aim to contribute to complex, high-quality software systems.`,
+  },
+  contacts: {
+    title: "Let's connect: ",
+    phone: "+43(681)81694562",
+    github: "https://github.com/yahorpaulson",
+    email: "yahorforall@gmail.com",
+  },
+  titles: {
+    switchLang: "Language",
+    home: {
+      about: "About me:",
+      project: "My projects:",
+      feedback: "I value your feedback! Please let me know your thoughts: ",
+      send: "Send",
+      thanks: "Thank you for your feedback!",
+      contacts: "Contact me:",
     },
-    contacts: {
-        title: "Let's connect: ",
-        phone: "+43(681)81694562",
-        github: "https://github.com/yahorpaulson",
-        email: "yahorforall@gmail.com"
+    project: {
+      detailsTitle: "Project Details:",
+      goals: "Goals:",
+      insights: "Insights:",
+      tags: "Tags:",
     },
-    titles: {
-        switchLang: "Language",
-        home: {
-            about: "About me:",
-            project: "My projects:",
-            feedback: "I value your feedback! Please let me know your thoughts: ",
-            send: "Send",
-            thanks: "Thank you for your feedback!",
-            contacts: "Contact me:",
-        },
-        project: {
-            detailsTitle: "Project Details:",
-            goals: "Goals:",
-            insights: "Insights:",
-            tags: "Tags:"
-        }
-    },
-    resume: {
-        text: 'Access to my CV...'
-    }
-
-
-
-
-}
+  },
+  resume: {
+    text: "Access to my CV...",
+  },
+};
