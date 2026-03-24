@@ -3,7 +3,7 @@
         <h2>{{ localizedTitle }}</h2>
 
         <div class="progress-content">
-            <div v-for="(year, index) in localizedYears" :key="year.year" class="column" :style="{
+            <div v-for="(year, index) in localizedYears" :key="year.year" class="progress-item" :style="{
                 height: animated ? year.height + 'px' : '0px',
                 transitionDelay: index * 150 + 'ms'
             }">
@@ -73,7 +73,7 @@ onMounted(async () => {
     color: white;
 }
 
-.columns {
+.progress-content {
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -82,7 +82,7 @@ onMounted(async () => {
     margin-top: 40px;
 }
 
-.column {
+.progress-item {
     display: flex;
     flex-direction: column;
     align-items: center;
