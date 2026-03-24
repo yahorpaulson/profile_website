@@ -110,8 +110,8 @@ function projectDetailsTransfer(slug: string) {
 }
 
 .projects-wrapper {
-    padding-left: 20%;
-    padding-right: 20%;
+    padding-left: 10%;
+    padding-right: 10%;
     display: flex;
     position: relative;
     flex-direction: column;
