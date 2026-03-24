@@ -70,7 +70,6 @@ onMounted(async () => {
 <style scoped>
 .progression {
     text-align: center;
-    padding: 60px 20px;
     color: white;
 }
 
@@ -79,7 +78,7 @@ onMounted(async () => {
     justify-content: center;
     align-items: flex-end;
     gap: 40px;
-    min-height: 320px;
+    min-height: 500px;
     margin-top: 40px;
 }
 
