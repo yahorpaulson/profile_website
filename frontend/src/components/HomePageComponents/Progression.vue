@@ -1,15 +1,19 @@
 <template>
-    <section class="progression">
-        <h2>{{ t.titles.progress.title }}</h2>
+    <section class="progression" v-if="progress">
+        <h2>{{ localizedTitle }}</h2>
 
-        <div class="progres-content">
-            <div v-for="(year, index) in progress" :key="year.year" class="column"
-                :style="{ height: animated ? year.height + 'px' : '0px', transitionDelay: index * 150 + 'ms' }">
+        <div class="progress-content">
+            <div v-for="(year, index) in localizedYears" :key="year.year" class="column" :style="{
+                height: animated ? year.height + 'px' : '0px',
+                transitionDelay: index * 150 + 'ms'
+            }">
                 <div class="bar">
                     <div class="details">
                         <h3>{{ year.title }}</h3>
                         <ul>
-                            <li v-for="item in year.items" :key="item">{{ item }}</li>
+                            <li v-for="item in year.items" :key="item">
+                                {{ item }}
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -21,27 +25,44 @@
         </div>
     </section>
 </template>
-<script setup lang="ts">
-import { t } from '../../modules/langStore';
-import { ref, onMounted } from "vue";
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+
+const progress = ref(null);
 const animated = ref(false);
-const progress = ref<any[]>([]);
+
+
+const currentLang = computed(() => lang.value);
+
+const localizedTitle = computed(() => {
+    if (!progress.value?.title) return '';
+    return progress.value.title[currentLang.value] || progress.value.title.en;
+});
+
+const localizedYears = computed(() => {
+    if (!progress.value?.years) return [];
+
+    return progress.value.years.map((year, index) => ({
+        ...year,
+        title: year.title?.[currentLang.value] || year.title?.en || '',
+        items: year.items?.[currentLang.value] || year.items?.en || [],
+        height: [120, 180, 240][index] || 150
+    }));
+});
 
 onMounted(async () => {
     try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/progress`);
         const data = await response.json();
         progress.value = data;
-
-
     } catch (error) {
         console.error('Failed to fetch progression data:', error);
     }
+
     setTimeout(() => {
         animated.value = true;
     }, 200);
 });
-
 </script>
 
 <style scoped>
