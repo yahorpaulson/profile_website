@@ -77,9 +77,7 @@ onMounted(async () => {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: 40px;
     min-height: 500px;
-    margin-top: 40px;
 }
 
 .column {
