@@ -70,6 +70,7 @@ onMounted(async () => {
 .progression {
     text-align: center;
     padding: 60px 20px;
+    color: white;
 }
 
 .columns {
