@@ -72,6 +72,7 @@ onMounted(async () => {
     text-align: center;
     color: white;
     position: relative;
+    margin-bottom: 10%;
 }
 
 .progress-content {
