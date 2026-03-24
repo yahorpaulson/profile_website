@@ -3,11 +3,11 @@
         <h2>{{ localizedTitle }}</h2>
 
         <div class="progress-content">
-            <div v-for="(year, index) in localizedYears" :key="year.year" class="progress-item" :style="{
-                height: animated ? year.height + 'px' : '0px',
-                transitionDelay: index * 150 + 'ms'
-            }">
-                <div class="bar">
+            <div v-for="(year, index) in localizedYears" :key="year.year" class="column">
+                <div class="bar" :style="{
+                    height: animated ? year.height + 'px' : '0px',
+                    transitionDelay: index * 150 + 'ms'
+                }">
                     <div class="details">
                         <h3>{{ year.title }}</h3>
                         <ul>
@@ -20,18 +20,19 @@
 
                 <div class="label">
                     <span class="year">{{ year.year }}</span>
+                    <span class="name">{{ year.title }}</span>
                 </div>
             </div>
         </div>
     </section>
 </template>
+
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { lang } from './../../modules/langStore';
 
 const progress = ref(null);
 const animated = ref(false);
-
 
 const currentLang = computed(() => lang.value);
 
@@ -78,49 +79,53 @@ onMounted(async () => {
     justify-content: center;
     align-items: flex-end;
     gap: 40px;
-    height: 300px;
+    min-height: 320px;
     margin-top: 40px;
 }
 
-.progress-item {
+.column {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
+    width: 140px;
 }
 
 .bar {
     width: 60px;
+    height: 0;
     background: linear-gradient(180deg, #00f0ff, #0077ff);
     border-radius: 10px;
     position: relative;
-    overflow: hidden;
-    transition: 0.8s ease;
+    overflow: visible;
+    transition: height 0.8s ease, transform 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
 }
-
 
 .bar:hover {
     transform: scale(1.05);
 }
 
-
 .details {
     position: absolute;
-    bottom: 100%;
+    bottom: calc(100% + 12px);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(10px);
     background: #0b0f1a;
     color: white;
     padding: 15px;
     border-radius: 10px;
-    width: 220px;
+    width: 240px;
     opacity: 0;
     pointer-events: none;
-    transition: 0.3s;
+    transition: 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
 }
 
 .bar:hover .details {
     opacity: 1;
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateX(-50%) translateY(0);
 }
 
 .details h3 {
@@ -129,8 +134,9 @@ onMounted(async () => {
 }
 
 .details ul {
-    padding-left: 15px;
+    padding-left: 18px;
     text-align: left;
+    margin: 0;
 }
 
 .details li {
@@ -139,17 +145,21 @@ onMounted(async () => {
 }
 
 .label {
-    margin-top: 10px;
+    margin-top: 14px;
     text-align: center;
 }
 
 .year {
     display: block;
     font-weight: bold;
+    font-size: 1.8rem;
+    margin-bottom: 6px;
 }
 
 .name {
+    display: block;
     font-size: 12px;
     color: #aaa;
+    line-height: 1.4;
 }
 </style>
