@@ -33,6 +33,9 @@ Ich entwickle meine technischen und fachlichen Fähigkeiten kontinuierlich weite
       insights: "Erkenntnisse:",
       tags: "Stichworte:",
     },
+    progress: {
+      title: "Schwerpunkt & Entwicklung",
+    },
   },
   resume: {
     text: "Zugriff auf meinen Lebenslauf...",

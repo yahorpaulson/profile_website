@@ -31,6 +31,9 @@ I continuously develop my technical and professional skills and aim to contribut
       insights: "Insights:",
       tags: "Tags:",
     },
+    progress: {
+      title: "Engineering Focus & Progression",
+    },
   },
   resume: {
     text: "Access to my CV...",
