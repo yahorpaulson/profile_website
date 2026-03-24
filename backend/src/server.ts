@@ -56,7 +56,13 @@ async function startServer() {
     app.get("/api/progress", async (req: Request, res: Response) => {
       try {
         const progressCollection = db.collection("progress");
-        const progress = await progressCollection.findOne();
+        const progress = await progressCollection.findOne({});
+
+        if (!progress) {
+          res.status(404).json({ message: "[ERROR]: Progress data not found" });
+          return;
+        }
+
         res.status(200).json(progress);
       } catch (err) {
         console.error("[ERROR]: Failed to fetch progress data", err);

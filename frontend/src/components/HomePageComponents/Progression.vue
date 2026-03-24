@@ -27,6 +27,7 @@
 </template>
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import { lang } from './../../modules/langStore';
 
 const progress = ref(null);
 const animated = ref(false);
@@ -95,7 +96,7 @@ onMounted(async () => {
     transition: 0.8s ease;
 }
 
-/* Hover effect */
+
 .bar:hover {
     transform: scale(1.05);
 }
