@@ -131,8 +131,11 @@ onMounted(async () => {
 
 
     .bar:hover .details {
-        left: auto;
-        right: 0;
+
+        position: relative;
+        margin-left: 0px;
+
+        z-index: 100;
     }
 
 
