@@ -127,6 +127,17 @@ onMounted(async () => {
     transform: translateX(-50%) translateY(0);
 }
 
+@media (max-width: 768px) {
+
+
+    .bar:hover .details {
+        left: auto;
+        right: 0;
+    }
+
+
+}
+
 .details h3 {
     font-size: 14px;
     margin-bottom: 10px;
